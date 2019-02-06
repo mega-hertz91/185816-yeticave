@@ -11,7 +11,7 @@
                 <span class="lot__cost"><?=strip_tags(around_price($lot['price']))?></span>
             </div>
             <div class="lot__timer timer">
-                12:23
+                <?=get_time_left('23:59:59', 'now')?>
             </div>
         </div>
     </div>
