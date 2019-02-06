@@ -12,4 +12,3 @@ if($main_config['enable']) {
 $layout_content = include_template('layout.php', ['content' => $page_content, 'title' => $main_config['sitename'], 'category' => $categories, 'is_auth' => $is_auth, 'user_name' => $user_name]);
 
 print($layout_content);
-var_dump($categories);
