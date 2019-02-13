@@ -9,6 +9,8 @@ CREATE TABLE users (
   nikname CHAR (128) UNIQUE,
   email CHAR(128) NOT NULL UNIQUE,
   password CHAR(64),
+  contact TEXT,
+  avatar TEXT,
   date_db DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -20,10 +22,14 @@ CREATE TABLE category (
 CREATE TABLE lots (
   id INT PRIMARY KEY AUTO_INCREMENT,
   name CHAR(128),
+  description TEXT,
+  image TEXT,
   category_id INT,
   user_id INT,
-  start_price FLOAT,
-  start_date DATETIME DEFAULT CURRENT_TIMESTAMP
+  start_price FLOAT NOT NULL,
+  step_bet INT NOT NULL,
+  start_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  finish_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE bets (
