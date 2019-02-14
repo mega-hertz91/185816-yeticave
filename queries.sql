@@ -46,36 +46,59 @@ INSERT INTO lots (name, description, image, category_id, user_id, start_price, s
   VALUES (
   '2014 Rossignol District Snowboard',
   'Glass Fiber – Has greater elongation before break than carbon and comes in multiple ',
-  'product/board/rossignol.png',
+  'img/lot-1.jpg',
   1,
   2,
-  11000,
+  10999,
   1000
   ),
   (
-  'Куртка для сноуборда DC Mutiny Charocal',
-  'Мужская сноубордическая куртка DC Ripley с ярким и стильным дизайном. Оснащена водостойкой',
-  'product/board/jacked.png',
-  4,
-  5,
-  8000,
-  500
-  ),
-  (
-  'Маска Oakley Canopy',
-  'Маска с очень большой линзой, которая обеспечивает лучший обзор среди всех масок в линейке. Картинка будет четкой, контрастной и глубокой',
-  'product/board/jacked.png',
-  6,
+  'DC Ply Mens 2016/2017 Snowboard',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  'img/lot-2.jpg',
   1,
-  13000,
-  2000
+  5,
+  159999,
+  10000
   ),
   (
   'Крепления Union Contact Pro 2015 года размер L/XL',
   'Крепления сноубордические мужские Union FACTORY (2015)',
-  'product/board/jacked.png',
+  'img/lot-3.jpg',
   2,
   3,
-  7000,
+  8000,
   500
-  );
+  ),
+  (
+  'Ботинки для сноуборда DC Mutiny Charocal',
+  'Curabitur aliquam porta mauris sed commodo',
+  'img/lot-4.jpg',
+  3,
+  4,
+  10999,
+  1000
+  ),
+  (
+  'Куртка для сноуборда DC Mutiny Charocal',
+  'Proin scelerisque imperdiet lectus a porta',
+  'img/lot-5.jpg',
+   4,
+   4,
+   7500,
+   500
+   ),
+   (
+   'Маска Oakley Canopy',
+   'Маска с очень большой линзой, которая обеспечивает лучший обзор среди всех масок в линейке. Картинка будет четкой, контрастной и глубокой',
+   'img/lot-6.jpg',
+   6,
+   1,
+   5400,
+   500
+   );
+
+INSERT INTO bets (price_bet, user_id, lot_id, date_bet)
+  VALUES (12000, 2, 3, '2019-02-09 09:00:00'),
+         (7500, 3, 6, '2019-02-08 08:00:00'),
+         (15000, 5, 4, '2019-02-11 13:30:00');
