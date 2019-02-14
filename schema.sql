@@ -26,6 +26,7 @@ CREATE TABLE lots (
   image TEXT,
   category_id INT,
   user_id INT,
+  price INT NOT NULL,
   start_price FLOAT NOT NULL,
   step_bet INT NOT NULL,
   start_date DATETIME DEFAULT CURRENT_TIMESTAMP,

@@ -42,7 +42,7 @@ INSERT INTO categories (name)
   ('Инструменты'),
   ('Разное');
 
-INSERT INTO lots (name, description, image, category_id, user_id, start_price, step_bet, start_date, finish_date)
+INSERT INTO lots (name, description, image, category_id, user_id, price, start_price, step_bet, start_date, finish_date)
 VALUES (
            '2014 Rossignol District Snowboard',
            'Glass Fiber – Has greater elongation before break than carbon and comes in multiple ',
@@ -50,6 +50,7 @@ VALUES (
            1,
            2,
            10999,
+           12000,
            1000,
            '2019-01-20 09:00:00',
            '2019-02-02 00:00:00'
@@ -61,6 +62,7 @@ VALUES (
            1,
            5,
            159999,
+           170000,
            10000,
            '2019-02-10 09:00:00',
            '2019-02-14 00:00:00'
@@ -72,6 +74,7 @@ VALUES (
            2,
            3,
            8000,
+           8500,
            500,
            '2019-01-30 09:00:00',
            '2019-02-14 00:00:00'
@@ -83,6 +86,7 @@ VALUES (
            3,
            4,
            10999,
+           11999,
            1000,
            '2019-01-20 09:00:00',
            '2019-02-02 00:00:00'
@@ -94,6 +98,7 @@ VALUES (
            4,
            4,
            7500,
+           8000,
            500,
            '2019-01-20 09:00:00',
            '2019-02-02 00:00:00'
@@ -105,6 +110,7 @@ VALUES (
            6,
            1,
            5400,
+           6100,
            500,
            '2019-01-20 09:00:00',
            '2019-02-02 00:00:00'
@@ -145,7 +151,7 @@ WHERE id = 2;
 /*Список самых свежих ставок для лота*/
 
 SELECT b.id, b.price_bet, b.user_id, b.lot_id, l.name, b.date_bet FROM bets b
-                                                                         JOIN lots l
-                                                                           ON b.id = l.id
+JOIN lots l
+ON b.id = l.id
 WHERE l.id = 3
 ORDER BY date_bet DESC
