@@ -42,63 +42,110 @@ INSERT INTO categories (name)
   ('Инструменты'),
   ('Разное');
 
-INSERT INTO lots (name, description, image, category_id, user_id, start_price, step_bet)
-  VALUES (
-  '2014 Rossignol District Snowboard',
-  'Glass Fiber – Has greater elongation before break than carbon and comes in multiple ',
-  'img/lot-1.jpg',
-  1,
-  2,
-  10999,
-  1000
-  ),
-  (
-  'DC Ply Mens 2016/2017 Snowboard',
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-  'img/lot-2.jpg',
-  1,
-  5,
-  159999,
-  10000
-  ),
-  (
-  'Крепления Union Contact Pro 2015 года размер L/XL',
-  'Крепления сноубордические мужские Union FACTORY (2015)',
-  'img/lot-3.jpg',
-  2,
-  3,
-  8000,
-  500
-  ),
-  (
-  'Ботинки для сноуборда DC Mutiny Charocal',
-  'Curabitur aliquam porta mauris sed commodo',
-  'img/lot-4.jpg',
-  3,
-  4,
-  10999,
-  1000
-  ),
-  (
-  'Куртка для сноуборда DC Mutiny Charocal',
-  'Proin scelerisque imperdiet lectus a porta',
-  'img/lot-5.jpg',
-   4,
-   4,
-   7500,
-   500
-   ),
-   (
-   'Маска Oakley Canopy',
-   'Маска с очень большой линзой, которая обеспечивает лучший обзор среди всех масок в линейке. Картинка будет четкой, контрастной и глубокой',
-   'img/lot-6.jpg',
-   6,
-   1,
-   5400,
-   500
-   );
+INSERT INTO lots (name, description, image, category_id, user_id, start_price, step_bet, start_date, finish_date)
+VALUES (
+           '2014 Rossignol District Snowboard',
+           'Glass Fiber – Has greater elongation before break than carbon and comes in multiple ',
+           'img/lot-1.jpg',
+           1,
+           2,
+           10999,
+           1000,
+           '2019-01-20 09:00:00',
+           '2019-02-02 00:00:00'
+           ),
+       (
+           'DC Ply Mens 2016/2017 Snowboard',
+           'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+           'img/lot-2.jpg',
+           1,
+           5,
+           159999,
+           10000,
+           '2019-02-10 09:00:00',
+           '2019-02-14 00:00:00'
+           ),
+       (
+           'Крепления Union Contact Pro 2015 года размер L/XL',
+           'Крепления сноубордические мужские Union FACTORY (2015)',
+           'img/lot-3.jpg',
+           2,
+           3,
+           8000,
+           500,
+           '2019-01-30 09:00:00',
+           '2019-02-14 00:00:00'
+           ),
+       (
+           'Ботинки для сноуборда DC Mutiny Charocal',
+           'Curabitur aliquam porta mauris sed commodo',
+           'img/lot-4.jpg',
+           3,
+           4,
+           10999,
+           1000,
+           '2019-01-20 09:00:00',
+           '2019-02-02 00:00:00'
+           ),
+       (
+           'Куртка для сноуборда DC Mutiny Charocal',
+           'Proin scelerisque imperdiet lectus a porta',
+           'img/lot-5.jpg',
+           4,
+           4,
+           7500,
+           500,
+           '2019-01-20 09:00:00',
+           '2019-02-02 00:00:00'
+           ),
+       (
+           'Маска Oakley Canopy',
+           'Маска с очень большой линзой, которая обеспечивает лучший обзор среди всех масок в линейке. Картинка будет четкой, контрастной и глубокой',
+           'img/lot-6.jpg',
+           6,
+           1,
+           5400,
+           500,
+           '2019-01-20 09:00:00',
+           '2019-02-02 00:00:00'
+           );
 
 INSERT INTO bets (price_bet, user_id, lot_id, date_bet)
   VALUES (12000, 2, 3, '2019-02-09 09:00:00'),
-         (7500, 3, 6, '2019-02-08 08:00:00'),
-         (15000, 5, 4, '2019-02-11 13:30:00');
+  (7500, 3, 6, '2019-02-08 08:00:00'),
+  (15000, 5, 4, '2019-02-11 13:30:00');
+
+/*Вывод всех категорий*/
+
+SELECT * FROM categories;
+
+/*Вывод актуальных лотов*/
+
+SELECT l.id, l.name, u.nikname, l.start_price, l.image, c.name FROM lots l
+JOIN categories c
+ON l.category_id = c.id
+JOIN users u
+ON l.user_id = u.id
+WHERE finish_date >= '2019-02-10 06:00:00';
+
+/*Выбор лота по id*/
+
+SELECT l.id, l.name, l.category_id, c.name, u.nikname, l.start_price, l.image FROM lots l
+JOIN categories c
+ON l.category_id = c.id
+JOIN users u
+ON l.user_id = u.id
+WHERE l.id = 4;
+
+/*Обновление имени лота по id*/
+
+UPDATE lots SET name = 'DC Ply Mens 2017/2018'
+WHERE id = 2;
+
+/*Список самых свежих ставок для лота*/
+
+SELECT b.id, b.price_bet, b.user_id, b.lot_id, l.name, b.date_bet FROM bets b
+                                                                         JOIN lots l
+                                                                           ON b.id = l.id
+WHERE l.id = 3
+ORDER BY date_bet DESC
