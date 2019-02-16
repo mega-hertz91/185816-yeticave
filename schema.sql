@@ -26,7 +26,6 @@ CREATE TABLE lots (
   image TEXT,
   category_id INT,
   user_id INT,
-  price INT NOT NULL,
   start_price FLOAT NOT NULL,
   step_bet INT NOT NULL,
   start_date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -42,3 +41,8 @@ CREATE TABLE bets (
 );
 
 
+
+SELECT b.lot_id, l.name, l.price, MAX(b.price_bet) AS max_bet FROM bets b
+JOIN lots l
+ON b.lot_id = l.id
+GROUP BY lot_id

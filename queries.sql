@@ -42,7 +42,7 @@ INSERT INTO categories (name)
   ('Инструменты'),
   ('Разное');
 
-INSERT INTO lots (name, description, image, category_id, user_id, price, start_price, step_bet, start_date, finish_date)
+INSERT INTO lots (name, description, image, category_id, user_id, start_price, step_bet, start_date, finish_date)
 VALUES (
            '2014 Rossignol District Snowboard',
            'Glass Fiber – Has greater elongation before break than carbon and comes in multiple ',
@@ -50,10 +50,9 @@ VALUES (
            1,
            2,
            10999,
-           12000,
            1000,
            '2019-01-20 09:00:00',
-           '2019-02-02 00:00:00'
+           '2019-03-02 00:00:00'
            ),
        (
            'DC Ply Mens 2016/2017 Snowboard',
@@ -62,7 +61,6 @@ VALUES (
            1,
            5,
            159999,
-           170000,
            10000,
            '2019-02-10 09:00:00',
            '2019-02-14 00:00:00'
@@ -74,10 +72,9 @@ VALUES (
            2,
            3,
            8000,
-           8500,
            500,
            '2019-01-30 09:00:00',
-           '2019-02-14 00:00:00'
+           '2019-03-14 00:00:00'
            ),
        (
            'Ботинки для сноуборда DC Mutiny Charocal',
@@ -86,7 +83,7 @@ VALUES (
            3,
            4,
            10999,
-           11999,
+
            1000,
            '2019-01-20 09:00:00',
            '2019-02-02 00:00:00'
@@ -98,7 +95,6 @@ VALUES (
            4,
            4,
            7500,
-           8000,
            500,
            '2019-01-20 09:00:00',
            '2019-02-02 00:00:00'
@@ -110,7 +106,6 @@ VALUES (
            6,
            1,
            5400,
-           6100,
            500,
            '2019-01-20 09:00:00',
            '2019-02-02 00:00:00'
@@ -119,7 +114,10 @@ VALUES (
 INSERT INTO bets (price_bet, user_id, lot_id, date_bet)
   VALUES (12000, 2, 3, '2019-02-09 09:00:00'),
   (7500, 3, 6, '2019-02-08 08:00:00'),
-  (15000, 5, 4, '2019-02-11 13:30:00');
+  (15000, 5, 4, '2019-02-11 13:30:00'),
+  (15000, 2, 3, '2019-02-11 13:30:00'),
+  (13000, 2, 4, '2019-02-11 13:30:00'),
+  (15000, 1, 1, '2019-02-11 13:30:00');
 
 /*Вывод всех категорий*/
 
@@ -127,12 +125,13 @@ SELECT * FROM categories;
 
 /*Вывод актуальных лотов*/
 
-SELECT l.id, l.name, u.nikname, l.start_price, l.image, c.name FROM lots l
+SELECT b.lot_id, l.name, l.start_price, l.image, c.name as category, MAX(b.price_bet) AS current_price FROM lots l
+JOIN bets b
+ON b.lot_id = l.id
 JOIN categories c
 ON l.category_id = c.id
-JOIN users u
-ON l.user_id = u.id
-WHERE finish_date >= '2019-02-10 06:00:00';
+WHERE l.finish_date > NOW()
+GROUP BY b.lot_id;
 
 /*Выбор лота по id*/
 
@@ -154,4 +153,5 @@ SELECT b.id, b.price_bet, b.user_id, b.lot_id, l.name, b.date_bet FROM bets b
 JOIN lots l
 ON b.id = l.id
 WHERE l.id = 3
-ORDER BY date_bet DESC
+ORDER BY date_bet DESC;
+
