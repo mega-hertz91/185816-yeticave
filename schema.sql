@@ -40,3 +40,9 @@ CREATE TABLE bets (
   date_bet DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+
+
+SELECT b.lot_id, l.name, l.price, MAX(b.price_bet) AS max_bet FROM bets b
+JOIN lots l
+ON b.lot_id = l.id
+GROUP BY lot_id
