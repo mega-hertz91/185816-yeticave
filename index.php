@@ -16,7 +16,7 @@ if($con === false) {
     $page_content = include_template('off.php', ['text_error' => 'Сайт находится на техническом обслуживании!']);
 } else {
 
-    if(render_lots($con) == null or render_categories($con) == null) {
+    if(render_lots($con) === null or render_categories($con) === null) {
         $page_content = include_template('off.php', ['text_error' => 'Произошла ошибка чтения данных']);
     } else {
         $page_content = include_template('main.php', ['lots' => render_lots($con), 'categories' => render_categories($con)]);
