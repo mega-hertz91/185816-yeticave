@@ -35,3 +35,25 @@ function get_time_left ($final_date, $start_date) {
 
     return $date_count;
 }
+
+function render_lots ($db_param) {
+    $sql = 'SELECT l.id, l.name, l.image, c.name AS category, l.start_price  FROM lots l
+            JOIN categories c
+            ON l.id = c.id
+            ORDER BY l.id';
+
+    $result = mysqli_query($db_param, $sql);
+    $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $lots;
+}
+
+function render_categories ($db_param) {
+    $sql = 'SELECT * FROM categories
+            ORDER BY id';
+
+    $result = mysqli_query($db_param, $sql);
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $categories;
+}
