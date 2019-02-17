@@ -4,7 +4,7 @@
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
         <ul class="promo__list">
             <!--заполните этот список из массива категорий-->
-            <?php foreach ($category as $cat): ?>
+            <?php foreach ($categories as $cat): ?>
                 <?=include_template('_categories.php', ['cat' => $cat])?>
             <? endforeach;?>
         </ul>

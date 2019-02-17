@@ -16,7 +16,8 @@ CREATE TABLE users (
 
 CREATE TABLE categories (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name CHAR(128) UNIQUE
+  name CHAR(128) UNIQUE,
+  class TEXT
 );
 
 CREATE TABLE lots (

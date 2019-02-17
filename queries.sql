@@ -34,13 +34,13 @@ INSERT INTO users (nikname, email, password, contact, avatar)
  'avatar/stasya.png'
  );
 
-INSERT INTO categories (name)
-  VALUE ('Доски и лыжи'),
-  ('Крепления'),
-  ('Ботинки'),
-  ('Одежда'),
-  ('Инструменты'),
-  ('Разное');
+INSERT INTO categories (name, class)
+  VALUES ('Доски и лыжи', 'promo__item--boards'),
+  ('Крепления', 'promo__item--attachment'),
+  ('Ботинки', 'promo__item--boots'),
+  ('Одежда', 'promo__item--clothing'),
+  ('Инструменты', 'promo__item--tools'),
+  ('Разное', 'promo__item--other');
 
 INSERT INTO lots (name, description, image, category_id, user_id, start_price, step_bet, start_date, finish_date)
 VALUES (
