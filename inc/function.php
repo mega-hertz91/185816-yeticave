@@ -69,7 +69,7 @@ function have_lot ($db_params) {
    // $id = $_GET['lot_id'];
 
     if (isset($_GET['lot_id'])) {
-        $id = $_GET['lot_id'];
+        $id = intval($_GET['lot_id']);
     } else {
         $id = 'none';
     }
