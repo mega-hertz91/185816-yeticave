@@ -11,7 +11,7 @@ if ($id > count_record($con, 'lots') or $id == 'none') {
     $layout_content_lot = include_template('layout_lot.php', ['content' => $content_lot,'categories' => render_categories($con)]);
 } else {
     $content_lot = include_template('_lot.php', [ 'lot' => have_lot($con)]);
-    $layout_content_lot = include_template('layout_lot.php', ['content' => $content_lot,'categories' => render_categories($con)]);
+    $layout_content_lot = include_template('layout_lot.php', ['content' => $content_lot,'categories' => render_categories($con), 'lot' => have_lot($con)]);
 }
 
 print($layout_content_lot);
