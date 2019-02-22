@@ -66,12 +66,10 @@ function render_categories ($db_params) {
 /*Отрисовка одного лота*/
 
 function have_lot ($db_params) {
-   // $id = $_GET['lot_id'];
-
     if (isset($_GET['lot_id'])) {
         $id = intval($_GET['lot_id']);
     } else {
-        $id = 'none';
+        $id = '1';
     }
 
     $sql = 'SELECT l.id, l.name, l.description, c.name AS category, l.image, l.start_price, l.start_date, l.step_bet, l.finish_date FROM lots l
@@ -82,6 +80,28 @@ function have_lot ($db_params) {
     $lot = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     return $lot[0];
+};
+
+/*Возвращает текущую цену лота*/
+
+function have_bet ($db_params) {
+    if (isset($_GET['lot_id'])) {
+        $id = intval($_GET['lot_id']);
+    } else {
+        $id = '1';
+    }
+
+    $sql = 'SELECT lot_id, MAX(price_bet) AS current_price from bets
+            WHERE lot_id = ' . $id .'
+            GROUP BY lot_id';
+    $result = mysqli_query($db_params, $sql);
+    $bet = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    if(!$bet) {
+        $bet = [['current_price' => false]];
+    }
+
+    return $bet[0];
 };
 
 /*Получение количества записей*/
