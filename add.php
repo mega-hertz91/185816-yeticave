@@ -5,8 +5,11 @@ require_once ('inc/function.php');
 
 $title = ['name' => 'Добавить лот'];
 
-$content = include_template('_add_lot.php', []);
+$content = include_template('_add_lot.php', ['categories' => render_categories($con)]);
 
 $layout_add_lot = include_template('layout_lot.php', ['content' => $content, 'categories' => render_categories($con), 'lot' => $title]);
 
 print($layout_add_lot);
+
+print('Мне отправили данные методом POST');
+var_dump($_POST);
