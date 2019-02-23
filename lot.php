@@ -15,3 +15,5 @@ if ($id > count_record($con, 'lots') or $id == 'none') {
 }
 
 print($layout_content_lot);
+
+print($title);
