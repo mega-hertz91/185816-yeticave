@@ -6,7 +6,6 @@ require_once ('inc/data.php');
 
 
 /*Подключение к БД */
-$con = mysqli_connect($sql_config['db_host'], $sql_config['db_user'], $sql_config['db_password'], $sql_config['db_name']);
 
 mysqli_set_charset($con, 'utf8');
 

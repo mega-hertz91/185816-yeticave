@@ -36,25 +36,80 @@ function get_time_left ($final_date, $start_date) {
     return $date_count;
 }
 
-function render_lots ($db_param) {
+/*Отрисовка списка лотов*/
+
+function render_lots ($db_params) {
     $sql = 'SELECT l.id, l.name, l.image, c.name AS category, l.start_price  FROM lots l
             JOIN categories c
             ON l.id = c.id
             ORDER BY l.id
             LIMIT 9';
 
-    $result = mysqli_query($db_param, $sql);
+    $result = mysqli_query($db_params, $sql);
     $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     return $lots;
 }
 
-function render_categories ($db_param) {
+/*Отрисовка списка категорий*/
+
+function render_categories ($db_params) {
     $sql = 'SELECT * FROM categories
             ORDER BY id';
 
-    $result = mysqli_query($db_param, $sql);
+    $result = mysqli_query($db_params, $sql);
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     return $categories;
+}
+
+/*Отрисовка одного лота*/
+
+function have_lot ($db_params) {
+    if (isset($_GET['lot_id'])) {
+        $id = intval($_GET['lot_id']);
+    } else {
+        $id = '1';
+    }
+
+    $sql = 'SELECT l.id, l.name, l.description, c.name AS category, l.image, l.start_price, l.start_date, l.step_bet, l.finish_date FROM lots l
+            JOIN categories c
+            ON c.id = l.category_id
+            WHERE l.id = ' . $id;
+    $result = mysqli_query($db_params, $sql);
+    $lot = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $lot[0];
+};
+
+/*Возвращает текущую цену лота*/
+
+function have_bet ($db_params) {
+    if (isset($_GET['lot_id'])) {
+        $id = intval($_GET['lot_id']);
+    } else {
+        $id = '1';
+    }
+
+    $sql = 'SELECT lot_id, MAX(price_bet) AS current_price from bets
+            WHERE lot_id = ' . $id .'
+            GROUP BY lot_id';
+    $result = mysqli_query($db_params, $sql);
+    $bet = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    if(!$bet) {
+        $bet = [['current_price' => false]];
+    }
+
+    return $bet[0];
+};
+
+/*Получение количества записей*/
+
+function count_record ($db_params, $table) {
+    $sql = 'SELECT COUNT(*) from ' . $table ;
+    $result = mysqli_query($db_params, $sql);
+    $count = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $count[0]['COUNT(*)'];
 }
