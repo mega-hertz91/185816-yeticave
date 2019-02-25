@@ -181,10 +181,18 @@ function get_id_category ($categories, $get_id) {
 
 /*Добавление лота в БД*/
 
-function add_lot ($db_params, $name, $description, $image_url, $category, $user, $start_price, $step_bet, $finish_date) {
+function add_lot ($db_params, $form_data) {
     $sql = 'INSERT INTO lots (name, description, image, category_id, user_id, start_price, step_bet, finish_date)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 
-    $stmt = db_get_prepare_stmt($db_params, $sql, [$name, $description, $image_url, $category, $user, $start_price, $step_bet, $finish_date]);
+    $stmt = db_get_prepare_stmt($db_params, $sql, [$form_data['lot-name'], $form_data['message'], $form_data['image_url'], get_id_category(render_categories($db_params), $form_data['category']), 1, $form_data['lot-rate'], $form_data['lot-step'], $form_data['lot-date']]);
     $result = mysqli_stmt_execute($stmt);
+
+    if(!$result) {
+        $result = 'Ошибка записи, попробуйте позже';
+    } else {
+        $$result = mysqli_insert_id($db_params);
+    }
+
+    return $result;
 };

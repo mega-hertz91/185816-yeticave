@@ -24,14 +24,24 @@ if(empty($form_data)) {
     ];
 }
 
-$content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
+if (empty($errors)) {
+    $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data]);
 
-if ($_SERVER['REQUEST_METHOD'] = 'POST') {
-    $filename = uniqid(). '.jpg';
-    move_uploaded_file($_FILES['image-lot']['tmp_name'], 'img/' . $filename);
+    if ($_SERVER['REQUEST_METHOD'] = 'POST') {
+        $filename = uniqid(). '.jpg';
+        if($_FILES['image-lot']) {
+            move_uploaded_file($_FILES['image-lot']['tmp_name'], 'img/' . $filename);
 
-    add_lot($con, $form_data['lot-name'], $form_data['message'], 'img/' . $filename, get_id_category(render_categories($con), $form_data['category']), 1, $form_data['lot-rate'], $form_data['lot-step'], $form_data['lot-date']);
-};
+            $form_data += ['image_url' => 'img/' . $filename];
+        }
+
+        add_lot($con, $form_data);
+
+        header('location', '/lot_id=' . add_lot($con, $form_data));
+    };
+} else {
+    $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
+}
 
 $layout_add_lot = include_template('layout_lot.php', ['content' => $content, 'categories' => render_categories($con), 'lot' => $title]);
 
