@@ -190,8 +190,6 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 
     if(!$result) {
         $result = 'Ошибка записи, попробуйте позже';
-    } else {
-        $$result = mysqli_insert_id($db_params);
     }
 
     return $result;

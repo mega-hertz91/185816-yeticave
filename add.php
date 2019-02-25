@@ -36,8 +36,6 @@ if (empty($errors)) {
         }
 
         add_lot($con, $form_data);
-
-        header('location', '/lot_id=' . add_lot($con, $form_data));
     };
 } else {
     $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
