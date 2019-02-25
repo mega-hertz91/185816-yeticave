@@ -1,4 +1,8 @@
-
+<?php foreach ($form_data as $key => $value): ?>
+<p>
+    <span><?=$key?>: </span><span><?=$value?></span>
+</p>
+<? endforeach;?>
         <form class="form form--add-lot container form--invalid" action="/add.php" method="post"> <!-- form--invalid -->
             <h2>Добавление лота</h2>
             <div class="form__container-two">
