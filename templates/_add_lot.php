@@ -1,29 +1,28 @@
-<?php foreach ($form_data as $key => $value): ?>
-<p>
-    <span><?=$key?>: </span><span><?=$value?></span>
-</p>
-<? endforeach;?>
-        <form class="form form--add-lot container form--invalid" action="/add.php" method="post"> <!-- form--invalid -->
+        <form class="form form--add-lot container form--invalid" action="/add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
             <h2>Добавление лота</h2>
             <div class="form__container-two">
-                <div class="form__item form__item--invalid"> <!-- form__item--invalid -->
+                <div class="form__item <?php if(check_input($errors, 'lot-name') == true): ?>form__item--invalid<?php endif;?>"> <!-- form__item--invalid -->
                     <label for="lot-name">Наименование</label>
-                    <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" required>
+                    <input id="lot-name" type="text" name="lot-name" value="<?=$form_data['lot-name']?>" placeholder="Введите наименование лота">
                     <span class="form__error">Введите наименование лота</span>
                 </div>
                 <div class="form__item">
                     <label for="category">Категория</label>
                     <select id="category" name="category" required>
                         <?php foreach ($categories as  $cat): ?>
-                            <option><?= $cat['name']?></option>
+                            <option <?php if($cat['name'] === $form_data['category']) {
+                                print('selected');
+                            } ?>>
+                                <?= $cat['name']?></option>
                         <?php endforeach;?>
                     </select>
                     <span class="form__error">Выберите категорию</span>
                 </div>
             </div>
-            <div class="form__item form__item--wide">
+            <div class="form__item form__item--wide <?php if(check_input($errors, 'lot-message') == true): ?>form__item--invalid<?php endif;?>">
                 <label for="message">Описание</label>
-                <textarea id="message" name="message" placeholder="Напишите описание лота" required></textarea>
+                <textarea id="message" name="message" placeholder="Напишите описание лота" required><?=$form_data['message']?>
+                </textarea>
                 <span class="form__error">Напишите описание лота</span>
             </div>
             <div class="form__item form__item--file"> <!-- form__item--uploaded -->
@@ -35,26 +34,26 @@
                     </div>
                 </div>
                 <div class="form__input-file">
-                    <input class="visually-hidden" type="file" id="photo2" value="">
+                    <input class="visually-hidden" type="file" id="photo2" name="image-lot" value="">
                     <label for="photo2">
                         <span>+ Добавить</span>
                     </label>
                 </div>
             </div>
             <div class="form__container-three">
-                <div class="form__item form__item--small">
+                <div class="form__item form__item--small <?php if(check_input($errors, 'lot-rate') == true): ?>form__item--invalid<?php endif;?>">
                     <label for="lot-rate">Начальная цена</label>
-                    <input id="lot-rate" type="number" name="lot-rate" placeholder="0" required>
+                    <input id="lot-rate" type="number" name="lot-rate" placeholder="0" value="<?=$form_data['lot-rate']?>">
                     <span class="form__error">Введите начальную цену</span>
                 </div>
-                <div class="form__item form__item--small">
+                <div class="form__item form__item--small <?php if(check_input($errors, 'lot-step') == true): ?>form__item--invalid<?php endif;?>">
                     <label for="lot-step">Шаг ставки</label>
-                    <input id="lot-step" type="number" name="lot-step" placeholder="0" required>
+                    <input id="lot-step" type="number" name="lot-step" value="<?=$form_data['lot-step']?>" placeholder="0">
                     <span class="form__error">Введите шаг ставки</span>
                 </div>
                 <div class="form__item">
                     <label for="lot-date">Дата окончания торгов</label>
-                    <input class="form__input-date" id="lot-date" type="date" name="lot-date" required>
+                    <input class="form__input-date" id="lot-date" type="date" name="lot-date" value="<?=$form_data['lot-date']?>" required>
                     <span class="form__error">Введите дату завершения торгов</span>
                 </div>
             </div>

@@ -1,4 +1,40 @@
 <?php
+
+function db_get_prepare_stmt($link, $sql, $data = []) {
+    $stmt = mysqli_prepare($link, $sql);
+
+    if ($data) {
+        $types = '';
+        $stmt_data = [];
+
+        foreach ($data as $value) {
+            $type = null;
+
+            if (is_int($value)) {
+                $type = 'i';
+            }
+            else if (is_string($value)) {
+                $type = 's';
+            }
+            else if (is_double($value)) {
+                $type = 'd';
+            }
+
+            if ($type) {
+                $types .= $type;
+                $stmt_data[] = $value;
+            }
+        }
+
+        $values = array_merge([$stmt, $types], $stmt_data);
+
+        $func = 'mysqli_stmt_bind_param';
+        $func(...$values);
+    }
+
+    return $stmt;
+}
+
 function around_price($price) {
     $elem = ceil($price);
 
@@ -113,3 +149,42 @@ function count_record ($db_params, $table) {
 
     return $count[0]['COUNT(*)'];
 }
+
+/*Проверяет ошибки при заполнении формы */
+
+
+function check_input ($errors, $input) {
+    $check = false;
+
+    foreach ($errors as $key) {
+        if ($key === $input) {
+            $check = true;
+        }
+    }
+
+    return $check;
+};
+
+/*Получает id категории*/
+
+function get_id_category ($categories, $get_id) {
+    $id_category = '';
+    foreach ($categories as $key) {
+        if ($key['name'] === $get_id) {
+            $id_category = $key['id'];
+        }
+    }
+
+    return $id_category;
+}
+
+
+/*Добавление лота в БД*/
+
+function add_lot ($db_params, $name, $description, $image_url, $category, $user, $start_price, $step_bet, $finish_date) {
+    $sql = 'INSERT INTO lots (name, description, image, category_id, user_id, start_price, step_bet, finish_date)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+
+    $stmt = db_get_prepare_stmt($db_params, $sql, [$name, $description, $image_url, $category, $user, $start_price, $step_bet, $finish_date]);
+    $result = mysqli_stmt_execute($stmt);
+};
