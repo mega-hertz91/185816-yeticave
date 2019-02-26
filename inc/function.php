@@ -127,7 +127,9 @@ function have_lots_by_category ($db_params) {
         $id = '1';
     }
 
-    $sql = 'SELECT * FROM lots
+    $sql = 'SELECT l.id, l.name, l.description, c.name AS category, l.image, l.start_price, l.start_date, l.step_bet, l.finish_date FROM lots l
+            JOIN categories c
+            ON c.id = l.category_id
             WHERE category_id =' . $id;
     $result = mysqli_query($db_params, $sql);
     $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
