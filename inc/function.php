@@ -118,6 +118,10 @@ function have_lot ($db_params) {
     return $lot[0];
 };
 
+/*Загрузка лотов по категории*/
+
+
+
 /*Возвращает текущую цену лота*/
 
 function have_bet ($db_params) {
@@ -140,12 +144,12 @@ function have_bet ($db_params) {
     return $bet[0];
 };
 
-/*Проверка на наличие существующего лота*/
+/*Проверка на наличие существующего ID*/
 
-function check_id ($db_params, $id) {
+function check_id ($db_params, $table, $id) {
     $check = false;
 
-    $sql = 'SELECT id FROM lots';
+    $sql = 'SELECT id FROM ' . $table;
     $result = mysqli_query($db_params, $sql);
     $lots_id = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
