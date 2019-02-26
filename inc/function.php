@@ -140,14 +140,22 @@ function have_bet ($db_params) {
     return $bet[0];
 };
 
-/*Получение количества записей*/
+/*Проверка на наличие существующего лота*/
 
-function count_record ($db_params, $table) {
-    $sql = 'SELECT COUNT(*) from ' . $table ;
+function check_id ($db_params, $id) {
+    $check = false;
+
+    $sql = 'SELECT id FROM lots';
     $result = mysqli_query($db_params, $sql);
-    $count = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $lots_id = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    return $count[0]['COUNT(*)'];
+   foreach ($lots_id as $key) {
+      if($key['id'] === $id) {
+          $check = true;
+      }
+    };
+
+    return $check;
 }
 
 /*Проверяет ошибки при заполнении формы */
@@ -189,7 +197,9 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     $result = mysqli_stmt_execute($stmt);
 
     if(!$result) {
-        $result = 'Ошибка записи, попробуйте позже';
+        $result = 'error';
+    } else {
+        $result = mysqli_insert_id($db_params);
     }
 
     return $result;

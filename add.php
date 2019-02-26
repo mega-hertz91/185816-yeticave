@@ -32,12 +32,10 @@ if (empty($errors)) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $filename = uniqid(). '.jpg';
         $_FILES['image-lot'];
+
         move_uploaded_file($_FILES['image-lot']['tmp_name'], 'img/' . $filename);
-
         $form_data += ['image_url' => 'img/' . $filename];
-
-
-        add_lot($con, $form_data);
+        header('location: /lot.php?lot_id=' . add_lot($con, $form_data));
     };
 
 
@@ -48,4 +46,3 @@ if (empty($errors)) {
 $layout_add_lot = include_template('layout_lot.php', ['content' => $content, 'categories' => render_categories($con), 'lot' => $title]);
 
 print($layout_add_lot);
-print_r($errors);
