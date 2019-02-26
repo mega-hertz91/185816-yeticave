@@ -5,6 +5,7 @@ require_once ('inc/function.php');
 
 $title = ['name' => 'Добавить лот'];
 $form_data = $_POST;
+$data_files = $_FILES;
 $errors = [];
 
 foreach ($form_data as $key => $value) {
@@ -24,19 +25,32 @@ if(empty($form_data)) {
     ];
 }
 
+if(empty($data_files)) {
+    $data_files = [
+        'image-lot' => '',
+        'name' => '',
+        'type' => '',
+        'tmp_name' => '',
+        'error' => '',
+        'size' => ''
+    ];
+}
+
 if (empty($errors)) {
     $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data]);
 
-    if ($_SERVER['REQUEST_METHOD'] = 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $filename = uniqid(). '.jpg';
-        if($_FILES['image-lot']) {
-            move_uploaded_file($_FILES['image-lot']['tmp_name'], 'img/' . $filename);
+        $data_files['image-lot'];
+        move_uploaded_file($_FILES['image-lot']['tmp_name'], 'img/' . $filename);
 
-            $form_data += ['image_url' => 'img/' . $filename];
-        }
+        $form_data += ['image_url' => 'img/' . $filename];
+
 
         add_lot($con, $form_data);
     };
+
+
 } else {
     $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
 }
@@ -44,3 +58,4 @@ if (empty($errors)) {
 $layout_add_lot = include_template('layout_lot.php', ['content' => $content, 'categories' => render_categories($con), 'lot' => $title]);
 
 print($layout_add_lot);
+print_r($_FILES);
