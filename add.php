@@ -25,23 +25,13 @@ if(empty($form_data)) {
     ];
 }
 
-if(empty($data_files)) {
-    $data_files = [
-        'image-lot' => '',
-        'name' => '',
-        'type' => '',
-        'tmp_name' => '',
-        'error' => '',
-        'size' => ''
-    ];
-}
 
 if (empty($errors)) {
     $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data]);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $filename = uniqid(). '.jpg';
-        $data_files['image-lot'];
+        $_FILES['image-lot'];
         move_uploaded_file($_FILES['image-lot']['tmp_name'], 'img/' . $filename);
 
         $form_data += ['image_url' => 'img/' . $filename];
