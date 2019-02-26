@@ -120,7 +120,20 @@ function have_lot ($db_params) {
 
 /*Загрузка лотов по категории*/
 
+function have_lots_by_category ($db_params) {
+    if (isset($_GET['category_id'])) {
+        $id = intval($_GET['category_id']);
+    } else {
+        $id = '1';
+    }
 
+    $sql = 'SELECT * FROM lots
+            WHERE category_id =' . $id;
+    $result = mysqli_query($db_params, $sql);
+    $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $lots;
+};
 
 /*Возвращает текущую цену лота*/
 
