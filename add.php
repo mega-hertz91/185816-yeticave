@@ -48,4 +48,4 @@ if (empty($errors)) {
 $layout_add_lot = include_template('layout_lot.php', ['content' => $content, 'categories' => render_categories($con), 'lot' => $title]);
 
 print($layout_add_lot);
-print_r($_FILES);
+print_r($errors);

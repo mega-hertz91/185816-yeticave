@@ -1,4 +1,4 @@
-        <form class="form form--add-lot container form--invalid" action="/add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
+        <form class="form form--add-lot container form--invalid <?php if(check_input($errors, 'lot-rate') == true): ?>form--invalid<?php endif;?>" action="/add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
             <h2>Добавление лота</h2>
             <div class="form__container-two">
                 <div class="form__item <?php if(check_input($errors, 'lot-name') == true): ?>form__item--invalid<?php endif;?>"> <!-- form__item--invalid -->
@@ -57,6 +57,17 @@
                     <span class="form__error">Введите дату завершения торгов</span>
                 </div>
             </div>
-            <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
+            <div class="form__error
+            <?php if(check_input($errors, 'lot-rate') == true): ?>form__error--bottom">
+                Пожалуйста, исправьте ошибки в форме.
+                <ul>
+                    <?php foreach ($errors as $key): ?>
+                        <li><?=$key?>: не заполненно поле</li>
+                    <?php endforeach;?>
+                </ul>
+            </div>
+            <?php else:?>
+                <div class="form__error"></div>
+            <?php endif;?>
             <button type="submit" class="button">Добавить лот</button>
         </form>
