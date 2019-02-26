@@ -1,4 +1,40 @@
 <?php
+
+function db_get_prepare_stmt($link, $sql, $data = []) {
+    $stmt = mysqli_prepare($link, $sql);
+
+    if ($data) {
+        $types = '';
+        $stmt_data = [];
+
+        foreach ($data as $value) {
+            $type = null;
+
+            if (is_int($value)) {
+                $type = 'i';
+            }
+            else if (is_string($value)) {
+                $type = 's';
+            }
+            else if (is_double($value)) {
+                $type = 'd';
+            }
+
+            if ($type) {
+                $types .= $type;
+                $stmt_data[] = $value;
+            }
+        }
+
+        $values = array_merge([$stmt, $types], $stmt_data);
+
+        $func = 'mysqli_stmt_bind_param';
+        $func(...$values);
+    }
+
+    return $stmt;
+}
+
 function around_price($price) {
     $elem = ceil($price);
 
@@ -82,6 +118,25 @@ function have_lot ($db_params) {
     return $lot[0];
 };
 
+/*Загрузка лотов по категории*/
+
+function have_lots_by_category ($db_params) {
+    if (isset($_GET['category_id'])) {
+        $id = intval($_GET['category_id']);
+    } else {
+        $id = '1';
+    }
+
+    $sql = 'SELECT l.id, l.name, l.description, c.name AS category, l.image, l.start_price, l.start_date, l.step_bet, l.finish_date FROM lots l
+            JOIN categories c
+            ON c.id = l.category_id
+            WHERE category_id =' . $id;
+    $result = mysqli_query($db_params, $sql);
+    $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $lots;
+};
+
 /*Возвращает текущую цену лота*/
 
 function have_bet ($db_params) {
@@ -104,12 +159,67 @@ function have_bet ($db_params) {
     return $bet[0];
 };
 
-/*Получение количества записей*/
+/*Проверка на наличие существующего ID*/
 
-function count_record ($db_params, $table) {
-    $sql = 'SELECT COUNT(*) from ' . $table ;
+function check_id ($db_params, $table, $id) {
+    $check = false;
+
+    $sql = 'SELECT id FROM ' . $table;
     $result = mysqli_query($db_params, $sql);
-    $count = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    $lots_id = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    return $count[0]['COUNT(*)'];
+   foreach ($lots_id as $key) {
+      if($key['id'] === $id) {
+          $check = true;
+      }
+    };
+
+    return $check;
 }
+
+/*Проверяет ошибки при заполнении формы */
+
+
+function check_input ($errors, $input) {
+    $check = false;
+
+    foreach ($errors as $key) {
+        if ($key === $input) {
+            $check = true;
+        }
+    }
+
+    return $check;
+};
+
+/*Получает id категории*/
+
+function get_id_category ($categories, $get_id) {
+    $id_category = '';
+    foreach ($categories as $key) {
+        if ($key['name'] === $get_id) {
+            $id_category = $key['id'];
+        }
+    }
+
+    return $id_category;
+}
+
+
+/*Добавление лота в БД*/
+
+function add_lot ($db_params, $form_data) {
+    $sql = 'INSERT INTO lots (name, description, image, category_id, user_id, start_price, step_bet, finish_date)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+
+    $stmt = db_get_prepare_stmt($db_params, $sql, [$form_data['lot-name'], $form_data['message'], $form_data['image_url'], get_id_category(render_categories($db_params), $form_data['category']), 1, $form_data['lot-rate'], $form_data['lot-step'], $form_data['lot-date']]);
+    $result = mysqli_stmt_execute($stmt);
+
+    if(!$result) {
+        $result = 'error';
+    } else {
+        $result = mysqli_insert_id($db_params);
+    }
+
+    return $result;
+};
