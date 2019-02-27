@@ -10,7 +10,7 @@ CREATE TABLE users (
   email CHAR(128) NOT NULL UNIQUE,
   password CHAR(64),
   contact TEXT,
-  avatar TEXT DEFAULT ('img/default-avatar.png'),
+  avatar TEXT,
   date_db DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
