@@ -15,7 +15,9 @@ foreach ($form_data as $key => $value) {
 if(empty($form_data)) {
     $form_data = [
         'email' => '',
-        'password' => ''
+        'password' => '',
+        'name' => '',
+        'message' => ''
     ];
 
 };
@@ -30,4 +32,3 @@ if(empty($errors)) {
 $layout_content = include_template('layout_lot.php', ['content' => $page_content,'categories' => render_categories($con), 'lot' => ['name' => 'Регистрация']]);
 
 print ($layout_content);
-print_r($_POST);
