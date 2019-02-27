@@ -25,7 +25,7 @@
                 </textarea>
                 <span class="form__error">Напишите описание лота</span>
             </div>
-            <div class="form__item form__item--file"> <!-- form__item--uploaded -->
+            <div class="form__item form__item--file <?php if(check_input($errors, 'image-lot') == true): ?>form__item--invalid<?php endif;?>"> <!-- form__item--uploaded -->
                 <label>Изображение</label>
                 <div class="preview">
                     <button class="preview__remove" type="button">x</button>
@@ -39,6 +39,7 @@
                         <span>+ Добавить</span>
                     </label>
                 </div>
+                <span class="form__error">Загрузите изображение в формате ".jpeg"</span>
             </div>
             <div class="form__container-three">
                 <div class="form__item form__item--small <?php if(check_input($errors, 'lot-rate') == true): ?>form__item--invalid<?php endif;?>">
