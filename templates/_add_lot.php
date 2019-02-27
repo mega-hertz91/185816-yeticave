@@ -1,4 +1,4 @@
-        <form class="form form--add-lot container form--invalid <?php if(check_input($errors, 'lot-rate') == true): ?>form--invalid<?php endif;?>" action="/add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
+        <form class="form form--add-lot container form--invalid <?php if($errors): ?>form--invalid<?php endif;?>" action="/add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
             <h2>Добавление лота</h2>
             <div class="form__container-two">
                 <div class="form__item <?php if(check_input($errors, 'lot-name') == true): ?>form__item--invalid<?php endif;?>"> <!-- form__item--invalid -->
