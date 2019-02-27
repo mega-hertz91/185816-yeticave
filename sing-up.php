@@ -12,6 +12,14 @@ foreach ($form_data as $key => $value) {
     }
 }
 
+if(empty($_FILES) or $_FILES['avatar']['error'] === 0) {
+    foreach($_FILES as $key) {
+        if($key['type'] !== 'image/jpeg') {
+            array_push($errors, 'avatar');
+        }
+    }
+}
+
 if(empty($form_data)) {
     $form_data = [
         'email' => '',
@@ -42,12 +50,13 @@ if(empty($errors)) {
             if (add_user($con, $form_data) === true) {
                 header('Location: /enter.php');
                 exit();
+
             } else {
                 $page_content = include_template('404.php', ['text_error' => 'Произошла ошибка при регистрации, попробуйте еще раз']);
             }
         } else {
            // print('error');
-            $errors = [ 'email', 'text-error' => 'Пользователь с таким email уже зарегистрирован'];
+            array_push($errors, 'email', 'Пользователь с таким email уже зарегистрирован');
             $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
         }
     }
@@ -60,5 +69,4 @@ if(empty($errors)) {
 $layout_content = include_template('layout_lot.php', ['content' => $page_content,'categories' => render_categories($con), 'lot' => ['name' => 'Регистрация']]);
 
 print ($layout_content);
-print_r($form_data);
-print_r($_FILES['avatar']['error']);
+print_r($errors);

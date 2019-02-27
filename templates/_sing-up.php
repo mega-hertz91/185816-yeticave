@@ -24,7 +24,7 @@
             <textarea id="message" name="message" placeholder="Напишите как с вами связаться" required><?=$form_data['message']?></textarea>
             <span class="form__error">Напишите как с вами связаться</span>
         </div>
-        <div class="form__item form__item--file form__item--last">
+        <div class="form__item form__item--file form__item--last <?php if(check_input($errors, 'avatar') == true): ?>form__item--invalid<?php endif;?>">
             <label>Аватар</label>
             <div class="preview">
                 <button class="preview__remove" type="button">x</button>
@@ -38,13 +38,14 @@
                     <span>+ Добавить</span>
                 </label>
             </div>
+            <span class="form__error">Загрузите изображение в формате '.jpeg'</span>
         </div>
         <div class="form__error
             <?php if($errors): ?>form__error--bottom">
             Пожалуйста, исправьте ошибки в форме.
             <ul>
                 <?php foreach ($errors as $key): ?>
-                    <li><?=$key?>: не заполненно поле</li>
+                    <li><?=$key?></li>
                 <?php endforeach;?>
             </ul>
         </div>
