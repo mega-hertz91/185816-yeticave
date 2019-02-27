@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="form__error
-            <?php if(check_input($errors, 'lot-rate') == true): ?>form__error--bottom">
+            <?php if($errors): ?>form__error--bottom">
                 Пожалуйста, исправьте ошибки в форме.
                 <ul>
                     <?php foreach ($errors as $key): ?>

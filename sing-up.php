@@ -23,12 +23,42 @@ if(empty($form_data)) {
 };
 
 if(empty($errors)) {
-    $page_content = include_template('_sing-up.php', ['lots' => have_lots_by_category($con), 'categories' => render_categories($con), 'form_data' => $form_data]);
+    $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data]);
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        if(empty(check_email($con, $form_data['email']))) {
+
+            if($_FILES['avatar']['error'] > 0) {
+                $form_data += ['image_url' => 'img/default-avatar.jpeg'];
+            } else {
+                $filename = uniqid(). '.jpeg';
+                $user_img = $_FILES['avatar'];
+                move_uploaded_file($_FILES['avatar']['tmp_name'], 'img/' . $filename);
+                $form_data += ['image_url' => 'img/' . $filename];
+
+            }
+
+            if (add_user($con, $form_data) === true) {
+                header('Location: /enter.php');
+                exit();
+            } else {
+                $page_content = include_template('404.php', ['text_error' => 'Произошла ошибка при регистрации, попробуйте еще раз']);
+            }
+        } else {
+           // print('error');
+            $errors = [ 'email', 'text-error' => 'Пользователь с таким email уже зарегистрирован'];
+            $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
+        }
+    }
+
 } else {
-    $page_content = include_template('_sing-up.php', ['lots' => have_lots_by_category($con), 'categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
+    $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
 }
 
 
 $layout_content = include_template('layout_lot.php', ['content' => $page_content,'categories' => render_categories($con), 'lot' => ['name' => 'Регистрация']]);
 
 print ($layout_content);
+print_r($form_data);
+print_r($_FILES['avatar']['error']);

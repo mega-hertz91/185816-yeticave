@@ -205,6 +205,17 @@ function get_id_category ($categories, $get_id) {
     return $id_category;
 }
 
+/*Проверяет есть ли такой email в БД*/
+
+function check_email ($db_params, $email) {
+    $email = mysqli_real_escape_string($db_params, $email);
+    $sql = "SELECT * FROM users
+                WHERE email = '$email'";
+    $result = mysqli_query($db_params, $sql);
+    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $result;
+}
 
 /*Добавление лота в БД*/
 
@@ -222,4 +233,23 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     }
 
     return $result;
+};
+
+/*Добавление юзера в БД*/
+
+function add_user ($db_params, $form_data) {
+    $check = true;
+
+    $form_data['password']  = password_hash($form_data['password'], PASSWORD_DEFAULT);
+
+    $sql = 'INSERT INTO users (nikname, email, password, contact, avatar)
+            VALUES (?, ?, ?, ?, ?)';
+    $stmt = db_get_prepare_stmt($db_params, $sql,[$form_data['name'], $form_data['email'], $form_data['password'], $form_data['message'], $form_data['image_url']]);
+    $result = mysqli_stmt_execute($stmt);
+
+    if(!$result) {
+        $check = false;
+    }
+
+    return $check;
 };
