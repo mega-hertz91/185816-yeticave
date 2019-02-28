@@ -57,7 +57,7 @@ if(empty($_SESSION['user'])) {
     $text_error = http_response_code(403);
     $text_error = http_response_code();
 
-    $content = include_template('404.php', ['categories' => render_categories($con), 'text_error' => 'Ошибка сервера: ' . $text_error . '! Только авторизованные пользователи могут просматривать эту страницу']);
+    $content = include_template('404.php', ['categories' => render_categories($con), 'text_error' => 'Ошибка сервера: ' . $text_error . '! Только авторизованные пользователи могут просматривать эту страницу =)']);
 }
 
 $layout_add_lot = include_template('layout_lot.php', ['content' => $content, 'categories' => render_categories($con), 'lot' => $title]);
