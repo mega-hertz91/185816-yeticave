@@ -28,9 +28,21 @@ if(empty($errors)) {
             $text_error = 'Неверный email';
 
             $page_content = include_template('_enter.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors, 'text_error' => $text_error]);
-            print ('error');
-        } else {
-            print ('success');
+        }   else {
+            if( check_password($con, $form_data['email'],$form_data['password']) === false) {
+              array_push($errors, 'password');
+              $text_error = 'Вееденный пароль не верный';
+
+              $page_content = include_template('_enter.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors, 'text_error' => $text_error]);
+            }  else {
+                $_SESSION['user'] = (check_password($con, $form_data['email'],$form_data['password'])[0]);
+
+                if (isset($_SESSION['user'])){
+                  $page_content = include_template('_welcome.php', ['username' => $_SESSION['user']['nikname']]);
+                } else {
+                    $page_content = include_template('404.php', ['categories' => render_categories($con), 'text_error' => 'Произошла ошибка, попробуйте еще раз']);
+                };
+            };
         }
     }
 
@@ -42,4 +54,3 @@ if(empty($errors)) {
 $layout_content = include_template('layout_lot.php', ['content' => $page_content,'categories' => render_categories($con), 'lot' => ['name' => 'Вход на сайт']]);
 
 print ($layout_content);
-print_r($errors);
