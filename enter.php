@@ -40,7 +40,7 @@ if(empty($errors)) {
                 if (isset($_SESSION['user'])){
                   $page_content = include_template('_welcome.php', ['username' => $_SESSION['user']['nikname']]);
                 } else {
-                    $page_content = include_template('404.php', ['categories' => render_categories($con), 'text_error' => 'Произошла ошибка, попробуйте еще раз']);
+                    $page_content = include_template('_enter.php', ['categories' => render_categories($con), 'form_data' => $form_data]);
                 };
             };
         }

@@ -22,14 +22,23 @@
             </form>
             <a class="main-header__add-lot button" href="/add.php">Добавить лот</a>
             <nav class="user-menu">
-                <ul class="user-menu__list">
-                    <li class="user-menu__item">
-                        <a href="/sing-up.php">Регистрация</a>
-                    </li>
-                    <li class="user-menu__item">
-                        <a href="/enter.php">Вход</a>
-                    </li>
-                </ul>
+                <?php if (isset($_SESSION['user'])): ?>
+                    <div class="user-menu__logged" style="display: flex; align-items: center;">
+                        <p><?=$_SESSION['user']['nikname']; ?></p>
+                    </div>
+                    <div class="user-menu__logged" style="display: flex; align-items: center;">
+                        <a style="text-decoration: none;padding: 1px 5px;background-color: #45abde;color: white;margin-left: 5px;border-radius: 3px;" href="/logout.php">Выход</a>
+                    </div>
+                <?php else: ?>
+                    <ul class="user-menu__list">
+                        <li class="user-menu__item">
+                            <a href="/sing-up.php">Регистрация</a>
+                        </li>
+                        <li class="user-menu__item">
+                            <a href="/enter.php">Вход</a>
+                        </li>
+                    </ul>
+                <?php endif ?>
             </nav>
         </div>
     </header>
