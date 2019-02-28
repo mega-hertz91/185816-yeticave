@@ -217,6 +217,28 @@ function check_email ($db_params, $email) {
     return $result;
 }
 
+/*Проверяет пароль юзера*/
+
+function check_password ($db_params, $email, $password) {
+    $form_password = strval($password);
+
+    $email = mysqli_real_escape_string($db_params, $email);
+    $sql = "SELECT * FROM users
+            WHERE email ='$email'";
+    $user = mysqli_query($db_params, $sql);
+    $user = mysqli_fetch_all($user, MYSQLI_ASSOC);
+
+    $password = password_verify($form_password, $user[0]['password']);
+
+    if($password === false) {
+        $result = false;
+    } else {
+        $result = $user;
+    };
+
+    return $result;
+}
+
 /*Добавление лота в БД*/
 
 function add_lot ($db_params, $form_data) {
