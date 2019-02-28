@@ -27,7 +27,7 @@
                         <a href="/sing-up.php">Регистрация</a>
                     </li>
                     <li class="user-menu__item">
-                        <a href="login.html">Вход</a>
+                        <a href="/enter.php">Вход</a>
                     </li>
                 </ul>
             </nav>
