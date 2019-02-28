@@ -21,8 +21,7 @@
             </div>
             <div class="form__item form__item--wide <?php if(check_input($errors, 'lot-message') == true): ?>form__item--invalid<?php endif;?>">
                 <label for="message">Описание</label>
-                <textarea id="message" name="message" placeholder="Напишите описание лота" required><?=$form_data['message']?>
-                </textarea>
+                <textarea id="message" name="message" placeholder="Напишите описание лота" required><?=$form_data['message']?></textarea>
                 <span class="form__error">Напишите описание лота</span>
             </div>
             <div class="form__item form__item--file <?php if(check_input($errors, 'image-lot') == true): ?>form__item--invalid<?php endif;?>"> <!-- form__item--uploaded -->
@@ -39,7 +38,7 @@
                         <span>+ Добавить</span>
                     </label>
                 </div>
-                <span class="form__error">Загрузите изображение в формате ".jpeg"</span>
+                <span class="form__error">Загрузите изображение в формате ".jpeg, .jpg, .png"</span>
             </div>
             <div class="form__container-three">
                 <div class="form__item form__item--small <?php if(check_input($errors, 'lot-rate') == true): ?>form__item--invalid<?php endif;?>">

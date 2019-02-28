@@ -27,7 +27,7 @@ if(empty($form_data)) {
 
 if(empty($_FILES) or $_FILES['image-lot']['error'] === 0) {
     foreach($_FILES as $key) {
-        if($key['type'] !== 'image/jpeg') {
+        if($key['type'] !== 'image/jpeg' or $key['type'] !== 'image/jpg' or $key['type'] !== 'image/png') {
             array_push($errors, 'image-lot');
         }
     }

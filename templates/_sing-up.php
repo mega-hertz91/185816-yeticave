@@ -38,7 +38,7 @@
                     <span>+ Добавить</span>
                 </label>
             </div>
-            <span class="form__error">Загрузите изображение в формате '.jpeg'</span>
+            <span class="form__error">Загрузите изображение в формате ".jpeg, .jpg, .png</span>
         </div>
         <div class="form__error
             <?php if($errors): ?>form__error--bottom">

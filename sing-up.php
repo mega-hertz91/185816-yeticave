@@ -14,7 +14,7 @@ foreach ($form_data as $key => $value) {
 
 if(empty($_FILES) or $_FILES['avatar']['error'] === 0) {
     foreach($_FILES as $key) {
-        if($key['type'] !== 'image/jpeg') {
+        if($key['type'] !== 'image/jpeg' or $key['type'] !== 'image/jpg' or $key['type'] !== 'image/png') {
             array_push($errors, 'avatar');
         }
     }
