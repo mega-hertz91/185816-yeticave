@@ -80,9 +80,3 @@ if(empty($_SESSION['user'])) {
 $layout_add_lot = include_template('layout_lot.php', ['content' => $content, 'categories' => render_categories($con), 'lot' => $title]);
 
 print($layout_add_lot);
-$first_date = strtotime('5 march 2019');
-$second_date = strtotime('now');
-$one_day = strtotime('5 march 2019') - strtotime('4 march 2019');
-
-$result = $first_date > $second_date;
-var_dump($one_day);
