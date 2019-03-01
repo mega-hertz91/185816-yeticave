@@ -317,6 +317,26 @@ function add_user ($db_params, $form_data) {
     return $check;
 };
 
+/*Добавляет ставку*/
+
+function make_user_bet ($db_params, $user_bet) {
+    $sql = 'INSERT INTO bets (price_bet, user_id, lot_id)
+            VALUES (?, ?, ?)';
+    $stmt = db_get_prepare_stmt($db_params, $sql, [$user_bet['cost'], $user_bet['user_id'], $user_bet['lot_id']]);
+    $result = mysqli_stmt_execute($stmt);
+
+    if (!$result) {
+        $result = false;
+    } else {
+        $result = true;
+    }
+
+    return $result;
+};
+
+
+/*Возвращает количество прошедшего времени с текущей точки*/
+
 function have_date_last ($date) {
     $current_date = date_create('now');
     $date = date_create($date);
