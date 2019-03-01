@@ -25,6 +25,12 @@ if(empty($form_data)) {
     ];
 }
 
+if(isset($form_data['lot-date'])) {
+    if(check_now_date($form_data['lot-date']) == false) {
+        $errors = ['lot-date'];
+    }
+}
+
 $type_files = ['image/jpeg', 'image/png', 'image/jpg'];
 
 if($_FILES || isset($_FILES['image-lot']['error'])) {
@@ -74,4 +80,9 @@ if(empty($_SESSION['user'])) {
 $layout_add_lot = include_template('layout_lot.php', ['content' => $content, 'categories' => render_categories($con), 'lot' => $title]);
 
 print($layout_add_lot);
-print_r(get_errors_name($errors));
+$first_date = strtotime('5 march 2019');
+$second_date = strtotime('now');
+$one_day = strtotime('5 march 2019') - strtotime('4 march 2019');
+
+$result = $first_date > $second_date;
+var_dump($one_day);

@@ -346,3 +346,20 @@ function have_date_last ($date) {
 
     return $result;
 };
+
+/*Проверят дату не позже одного дня от данной отметки*/
+
+function check_now_date ($check_date) {
+    $check = true;
+
+    $check_date = strtotime($check_date);
+    $one_date = strtotime('5 march 2019') - strtotime('4 march 2019');
+    $date_now = strtotime('now');
+    $abs_date = $one_date + $date_now;
+
+    if ($check_date < $abs_date) {
+        $check = false;
+    }
+
+    return $check;
+};
