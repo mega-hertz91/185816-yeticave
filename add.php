@@ -27,17 +27,20 @@ if(empty($form_data)) {
 
 $type_files = ['image/jpeg', 'image/png', 'image/jpg'];
 
-if(empty($_FILES) || $_FILES['image-lot']['error'] === 0) {
-    $check = 'image-lot';
+if($_FILES || isset($_FILES['image-lot']['error'])) {
+    if($_FILES['image-lot']['error'] === 0) {
 
-    foreach($type_files as $key) {
-        if(mime_content_type($_FILES['image-lot']['tmp_name']) === $key) {
-            $check = '';
+        $check = 'image-lot';
+
+        foreach($type_files as $key) {
+            if(mime_content_type($_FILES['image-lot']['tmp_name']) === $key) {
+                $check = '';
+            }
         }
-    }
 
-    array_push($errors, $check);
-}
+        array_push($errors, $check);
+    }
+};
 
 if (empty($errors)) {
     $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data]);
