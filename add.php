@@ -42,6 +42,8 @@ if (empty($errors)) {
 
         move_uploaded_file($_FILES['image-lot']['tmp_name'], 'img/' . $filename);
         $form_data += ['image_url' => 'img/' . $filename];
+        $form_data +=['user_id' => $_SESSION['user']['id']];
+
         header('location: /lot.php?lot_id=' . add_lot($con, $form_data));
         die();
     };
