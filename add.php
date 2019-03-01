@@ -25,12 +25,18 @@ if(empty($form_data)) {
     ];
 }
 
-if(empty($_FILES) or $_FILES['image-lot']['error'] === 0) {
-    foreach($_FILES as $key) {
-        if($key['type'] !== 'image/jpeg' or $key['type'] !== 'image/jpg' or $key['type'] !== 'image/png') {
-            array_push($errors, 'image-lot');
+$type_files = ['image/jpeg', 'image/png', 'image/jpg'];
+
+if(empty($_FILES) || $_FILES['image-lot']['error'] === 0) {
+    $check = 'image-lot';
+
+    foreach($type_files as $key) {
+        if(mime_content_type($_FILES['image-lot']['tmp_name']) === $key) {
+            $check = '';
         }
     }
+
+    array_push($errors, $check);
 }
 
 if (empty($errors)) {
@@ -65,3 +71,4 @@ if(empty($_SESSION['user'])) {
 $layout_add_lot = include_template('layout_lot.php', ['content' => $content, 'categories' => render_categories($con), 'lot' => $title]);
 
 print($layout_add_lot);
+print_r($errors);
