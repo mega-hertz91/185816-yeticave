@@ -10,7 +10,7 @@ if (check_id($con, 'lots', $id) === false or $id == 'error') {
     $content_lot = include_template('404.php', [ 'text_error' => 'Извините, такого лота не найдено или не существует!']);
     $layout_content_lot = include_template('layout_lot.php', ['content' => $content_lot,'categories' => render_categories($con), 'lot' => ['name' => '404']]);
 } else {
-    $content_lot = include_template('_lot.php', [ 'lot' => have_lot($con), 'bet' => have_bet($con)]);
+    $content_lot = include_template('_lot.php', [ 'lot' => have_lot($con), 'bet' => have_bet($con), 'bets' => render_bets($con)]);
     $layout_content_lot = include_template('layout_lot.php', ['content' => $content_lot,'categories' => render_categories($con), 'lot' => have_lot($con)]);
 }
 

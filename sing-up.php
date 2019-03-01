@@ -78,4 +78,3 @@ if(empty($errors)) {
 $layout_content = include_template('layout_lot.php', ['content' => $page_content,'categories' => render_categories($con), 'lot' => ['name' => 'Регистрация']]);
 
 print ($layout_content);
-print_r($errors);

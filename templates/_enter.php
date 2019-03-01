@@ -11,7 +11,7 @@
     </div>
     <div class="form__item form__item--last <?php if(check_input($errors, 'password') == true): ?>form__item--invalid<?php endif;?>">
         <label for="password">Пароль*</label>
-        <input id="password" type="text" name="password" placeholder="Введите пароль" value="<?=$form_data['password']?>">
+        <input id="password" type="password" name="password" placeholder="Введите пароль" value="<?=$form_data['password']?>">
         <?php if(empty($text_error)):?>
             <span class="form__error">Введите пароль</span>
         <?php else:?>

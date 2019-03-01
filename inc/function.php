@@ -33,7 +33,7 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
     }
 
     return $stmt;
-}
+};
 
 function around_price($price) {
     $elem = ceil($price);
@@ -60,7 +60,7 @@ function include_template($name, $data) {
     $result = ob_get_clean();
 
     return $result;
-}
+};
 
 function get_time_left ($final_date, $start_date) {
      $final_date = date_create($final_date);
@@ -70,7 +70,7 @@ function get_time_left ($final_date, $start_date) {
     $date_count = date_interval_format($date_result, '%H:%I');
 
     return $date_count;
-}
+};
 
 /*Отрисовка списка лотов*/
 
@@ -85,7 +85,7 @@ function render_lots ($db_params) {
     $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     return $lots;
-}
+};
 
 /*Отрисовка списка категорий*/
 
@@ -97,7 +97,7 @@ function render_categories ($db_params) {
     $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     return $categories;
-}
+};
 
 /*Отрисовка одного лота*/
 
@@ -159,6 +159,23 @@ function have_bet ($db_params) {
     return $bet[0];
 };
 
+function render_bets ($db_param) {
+    if (isset($_GET['lot_id'])) {
+        $id = intval($_GET['lot_id']);
+    } else {
+        $id = '1';
+    }
+
+    $sql = "SELECT b.id, b.price_bet, u.nikname, b.lot_id, b.date_bet  FROM bets b
+            JOIN users u
+            ON user_id = u.id
+            WHERE lot_id =" . $id;
+    $result = mysqli_query($db_param, $sql);
+    $bets = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $bets;
+};
+
 /*Проверка на наличие существующего ID*/
 
 function check_id ($db_params, $table, $id) {
@@ -175,7 +192,7 @@ function check_id ($db_params, $table, $id) {
     };
 
     return $check;
-}
+};
 
 /*Проверяет ошибки при заполнении формы */
 
@@ -214,7 +231,7 @@ function get_errors_name ($errors) {
     }
 
     return $name_errors;
-}
+};
 
 /*Получает id категории*/
 
@@ -227,7 +244,7 @@ function get_id_category ($categories, $get_id) {
     }
 
     return $id_category;
-}
+};
 
 /*Проверяет есть ли такой email в БД*/
 
@@ -239,7 +256,7 @@ function check_email ($db_params, $email) {
     $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     return $result;
-}
+};
 
 /*Проверяет пароль юзера*/
 
@@ -261,7 +278,7 @@ function check_password ($db_params, $email, $password) {
     };
 
     return $result;
-}
+};
 
 /*Добавление лота в БД*/
 
@@ -298,4 +315,14 @@ function add_user ($db_params, $form_data) {
     }
 
     return $check;
+};
+
+function have_date_last ($date) {
+    $current_date = date_create('now');
+    $date = date_create($date);
+    $result = date_diff($current_date, $date);
+
+    $result = date_interval_format($result, '%D дней %H :%I');
+
+    return $result;
 };
