@@ -192,6 +192,27 @@ function check_input ($errors, $input) {
     return $check;
 };
 
+function get_errors_name ($errors) {
+    $name = [
+        'lot-name' => 'Название лота',
+        'message' => 'Описание лота',
+        'lot-rate' => 'Начальная цена',
+        'lot-step' => 'Шаг ставки'
+    ];
+
+    $name_errors = [];
+
+    foreach ($name as $key => $value) {
+        foreach ($errors as $key1) {
+            if($key1 == $key) {
+                $name_errors[] = $value;
+            }
+        }
+    }
+
+    return $name_errors;
+}
+
 /*Получает id категории*/
 
 function get_id_category ($categories, $get_id) {

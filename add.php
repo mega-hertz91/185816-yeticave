@@ -60,7 +60,7 @@ if (empty($errors)) {
 
 } else {
 
-    $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
+    $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => get_errors_name($errors)]);
 }
 
 if(empty($_SESSION['user'])) {
@@ -74,4 +74,4 @@ if(empty($_SESSION['user'])) {
 $layout_add_lot = include_template('layout_lot.php', ['content' => $content, 'categories' => render_categories($con), 'lot' => $title]);
 
 print($layout_add_lot);
-print_r($errors);
+print_r(get_errors_name($errors));
