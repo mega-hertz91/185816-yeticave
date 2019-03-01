@@ -197,7 +197,10 @@ function get_errors_name ($errors) {
         'lot-name' => 'Название лота',
         'message' => 'Описание лота',
         'lot-rate' => 'Начальная цена',
-        'lot-step' => 'Шаг ставки'
+        'lot-step' => 'Шаг ставки',
+        'email' => 'Электронная почта',
+        'password' => 'Пароль',
+        'name' => 'Имя'
     ];
 
     $name_errors = [];

@@ -12,11 +12,20 @@ foreach ($form_data as $key => $value) {
     }
 }
 
-if(empty($_FILES) or $_FILES['avatar']['error'] === 0) {
-    foreach($_FILES as $key) {
-        if($key['type'] !== 'image/jpeg' or $key['type'] !== 'image/jpg' or $key['type'] !== 'image/png') {
-            array_push($errors, 'avatar');
+$type_files = ['image/jpeg', 'image/png', 'image/jpg'];
+
+if($_FILES || isset($_FILES['avatar']['error'])) {
+    if($_FILES['avatar']['error'] === 0) {
+
+        $check = 'image-lot';
+
+        foreach($type_files as $key) {
+            if(mime_content_type($_FILES['avatar']['tmp_name']) === $key) {
+                $check = '';
+            }
         }
+
+        array_push($errors, $check);
     }
 }
 
@@ -62,7 +71,7 @@ if(empty($errors)) {
     }
 
 } else {
-    $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
+    $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => get_errors_name($errors)]);
 }
 
 
