@@ -62,4 +62,3 @@ if (check_id($con, 'lots', $id) === false or $id == 'error') {
 $layout_content_lot = include_template('layout_lot.php', ['content' => $content_lot,'categories' => render_categories($con), 'lot' => have_lot($con)]);
 
 print($layout_content_lot);
-var_dump($user_bet);

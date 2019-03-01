@@ -342,7 +342,7 @@ function have_date_last ($date) {
     $date = date_create($date);
     $result = date_diff($current_date, $date);
 
-    $result = date_interval_format($result, '%D дней %H :%I');
+   $result = date_interval_format($result, '%D дней %H :%I');
 
     return $result;
 };
