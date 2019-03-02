@@ -19,6 +19,12 @@ if(empty($_POST)) {
     ];
 }
 
+if(isset($form_data['email'])) {
+    if(filter_var($form_data['email'], FILTER_VALIDATE_EMAIL) == false) {
+        $errors[] = 'email';
+    }
+}
+
 if(empty($errors)) {
     $page_content = include_template('_enter.php', ['categories' => render_categories($con), 'form_data' => $form_data]);
 
@@ -54,3 +60,6 @@ if(empty($errors)) {
 $layout_content = include_template('layout_lot.php', ['content' => $page_content,'categories' => render_categories($con), 'lot' => ['name' => 'Вход на сайт']]);
 
 print ($layout_content);
+var_dump(filter_var($form_data['email'], FILTER_VALIDATE_EMAIL));
+var_dump($errors);
+
