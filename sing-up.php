@@ -14,7 +14,7 @@ foreach ($form_data as $key => $value) {
 
 $type_files = ['image/jpeg', 'image/png', 'image/jpg'];
 
-if($_FILES || isset($_FILES['avatar']['error'])) {
+if(isset($_FILES['avatar']['error'])) {
     if($_FILES['avatar']['error'] === 0) {
 
         $check = 'image-lot';

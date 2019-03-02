@@ -157,6 +157,8 @@ function have_bet ($db_params) {
     return $bet[0];
 };
 
+/*Отрисовывает ставки*/
+
 function render_bets ($db_param) {
     if (isset($_GET['lot_id'])) {
         $id = intval($_GET['lot_id']);
