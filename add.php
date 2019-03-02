@@ -33,7 +33,7 @@ if(isset($form_data['lot-date'])) {
 
 $type_files = ['image/jpeg', 'image/png', 'image/jpg'];
 
-if($_FILES || isset($_FILES['image-lot']['error'])) {
+if(isset($_FILES['image-lot']['error'])) {
     if($_FILES['image-lot']['error'] === 0) {
 
         $check = 'image-lot';
@@ -66,7 +66,7 @@ if (empty($errors)) {
 
 } else {
 
-    $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => get_errors_name($errors)]);
+    $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
 }
 
 if(empty($_SESSION['user'])) {

@@ -142,8 +142,6 @@ function have_lots_by_category ($db_params) {
 function have_bet ($db_params) {
     if (isset($_GET['lot_id'])) {
         $id = intval($_GET['lot_id']);
-    } else {
-        $id = '1';
     }
 
     $sql = 'SELECT lot_id, MAX(price_bet) AS current_price from bets
@@ -162,8 +160,6 @@ function have_bet ($db_params) {
 function render_bets ($db_param) {
     if (isset($_GET['lot_id'])) {
         $id = intval($_GET['lot_id']);
-    } else {
-        $id = '1';
     }
 
     $sql = "SELECT b.id, b.price_bet, u.nikname, b.lot_id, b.date_bet  FROM bets b
@@ -217,7 +213,8 @@ function get_errors_name ($errors) {
         'lot-step' => 'Шаг ставки',
         'email' => 'Электронная почта',
         'password' => 'Пароль',
-        'name' => 'Имя'
+        'name' => 'Имя',
+        'image-lot' => 'Изображение лота'
     ];
 
     $name_errors = [];
@@ -362,17 +359,4 @@ function check_now_date ($check_date) {
     }
 
     return $check;
-};
-
-/*Проверяет формат даты*/
-
-function is_Date($str){
-    if (is_numeric($str) ||  preg_match('^[0-9]^', $str)){
-        $stamp = strtotime($str);
-        $month = date( 'm', $stamp );
-        $day   = date( 'd', $stamp );
-        $year  = date( 'Y', $stamp );
-        return checkdate($month, $day, $year);
-    }
-    return false;
 };
