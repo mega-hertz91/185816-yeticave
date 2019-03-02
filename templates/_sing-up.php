@@ -41,7 +41,9 @@
             <span class="form__error">Загрузите изображение в формате ".jpeg, .jpg, .png</span>
         </div>
         <div class="form__error
-            <?php if($errors): ?>form__error--bottom">
+        <?php
+        $errors = get_errors_name($errors);
+        if($errors): ?>form__error--bottom">
             Пожалуйста, исправьте ошибки в форме.
             <ul>
                 <?php foreach ($errors as $key): ?>

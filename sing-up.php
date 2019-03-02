@@ -71,7 +71,7 @@ if(empty($errors)) {
     }
 
 } else {
-    $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => get_errors_name($errors)]);
+    $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
 }
 
 
