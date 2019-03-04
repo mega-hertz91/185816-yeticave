@@ -42,7 +42,6 @@ if (check_id($con, 'lots', $id) === false or $id == 'error') {
     $layout_content_lot = include_template('layout_lot.php', ['content' => $content_lot,'categories' => render_categories($con), 'lot' => ['name' => '404']]);
 
 } elseif($errors) {
-
     $content_lot = include_template('_lot.php', [ 'lot' => have_lot($con), 'bet' => have_bet($con), 'bets' => render_bets($con), 'user_bet' => $user_bet, 'errors' => $errors]);
 
 } else {

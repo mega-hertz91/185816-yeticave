@@ -48,7 +48,7 @@
                         <?php if(empty($errors)): ?>
                             <span class="form__error"></span>
                         <?php else: ?>
-                            <span class="form__error">Введите сумму лота лота</span>
+                            <span class="form__error">Сумма лота слишком мала</span>
                         <? endif; ?>
                     </p>
                     <button type="submit" class="button">Сделать ставку</button>
