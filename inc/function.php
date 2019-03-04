@@ -77,7 +77,7 @@ function get_time_left ($final_date, $start_date) {
 function render_lots ($db_params) {
     $sql = 'SELECT l.id, l.name, l.image, c.name AS category, l.start_price, l.finish_date  FROM lots l
             JOIN categories c
-            ON l.id = c.id
+            ON l.category_id = c.id
             WHERE finish_date > NOW()
             ORDER BY l.id
             LIMIT 9';

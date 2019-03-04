@@ -599,7 +599,7 @@ main.container {
   margin-right: 30px;
 }
 
-.lots__item:nth-of-type(3) {
+.lots__item:nth-of-type(3n + 3) {
   margin-right: 0;
 }
 
@@ -609,13 +609,15 @@ main.container {
 }
 
 .lot__image {
+  display: flex;
+  justify-content: center;
   width: 350px;
   height: 261px;
   border-bottom: 1px solid #e1e6e7;
 }
 
 .lot__image img {
-  width: 100%;
+  width: auto;
   height: 100%;
 }
 
@@ -993,6 +995,8 @@ input:invalid .form__error{
   position: absolute;
   left: 50%;
   top: 50%;
+  height: 100%;
+  width: auto;
   display: block;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
