@@ -207,6 +207,8 @@ function check_input ($errors, $input) {
     return $check;
 };
 
+/*Задает имена полям ошибок*/
+
 function get_errors_name ($errors) {
     $name = [
         'lot-name' => 'Название лота',
@@ -344,6 +346,10 @@ function get_search ($db_params, $form_data) {
             WHERE MATCH(l.name, l.description) AGAINST ('$form_data *' IN BOOLEAN MODE);";
     $result = mysqli_query($db_params, $sql);
     $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    if(!$lots) {
+        $lots = false;
+    }
 
     return $lots;
 };
