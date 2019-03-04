@@ -63,8 +63,8 @@ function include_template($name, $data) {
 };
 
 function get_time_left ($final_date, $start_date) {
-     $final_date = date_create($final_date);
-     $start_date = date_create($start_date);
+    $final_date = date_create($final_date);
+    $start_date = date_create($start_date);
 
     $date_result = date_diff( $final_date, $start_date);
     $date_count = date_interval_format($date_result, '%H:%I');
@@ -102,6 +102,7 @@ function render_categories ($db_params) {
 /*Отрисовка одного лота*/
 
 function have_lot ($db_params) {
+
     if (isset($_GET['lot_id'])) {
         $id = intval($_GET['lot_id']);
     } else {
@@ -115,16 +116,20 @@ function have_lot ($db_params) {
     $result = mysqli_query($db_params, $sql);
     $lot = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+    if($lot == false) {
+        $lot[0] = false;
+    }
+
     return $lot[0];
 };
 
 /*Загрузка лотов по категории*/
 
 function have_lots_by_category ($db_params) {
+    $id = '';
+
     if (isset($_GET['category_id'])) {
         $id = intval($_GET['category_id']);
-    } else {
-        $id = '1';
     }
 
     $sql = 'SELECT l.id, l.name, l.description, c.name AS category, l.image, l.start_price, l.start_date, l.step_bet, l.finish_date FROM lots l
@@ -140,6 +145,8 @@ function have_lots_by_category ($db_params) {
 /*Возвращает текущую цену лота*/
 
 function have_bet ($db_params) {
+    $id = '';
+
     if (isset($_GET['lot_id'])) {
         $id = intval($_GET['lot_id']);
     }
@@ -357,12 +364,22 @@ function get_search ($db_params, $form_data) {
 
 /*Возвращает количество прошедшего времени с текущей точки*/
 
-function have_date_last ($date) {
-    $current_date = date_create('now');
-    $date = date_create($date);
-    $result = date_diff($current_date, $date);
 
-   $result = date_interval_format($result, '%D дней %H :%I');
+function have_date_last ($date) {
+    $one_day = strtotime('5 march 2019') - strtotime('4 march 2019');
+    $current_date = strtotime('now');
+    $date = strtotime($date);
+    $result = $current_date - $date;
+
+    if($result > $one_day) {
+        $result = date("j дней", $result);
+    } elseif ($result > 3600) {
+        $result = date("H часов", $result);
+    } else {
+        $result = date("i минут", $result);
+    }
+
+
 
     return $result;
 };

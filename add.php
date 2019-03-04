@@ -60,7 +60,7 @@ if (empty($errors)) {
         $form_data +=['user_id' => $_SESSION['user']['id']];
 
         header('location: /lot.php?lot_id=' . add_lot($con, $form_data));
-        die();
+        exit();
     };
 
 
