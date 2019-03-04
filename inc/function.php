@@ -78,6 +78,7 @@ function render_lots ($db_params) {
     $sql = 'SELECT l.id, l.name, l.image, c.name AS category, l.start_price, l.finish_date  FROM lots l
             JOIN categories c
             ON l.id = c.id
+            WHERE finish_date > NOW()
             ORDER BY l.id
             LIMIT 9';
 
