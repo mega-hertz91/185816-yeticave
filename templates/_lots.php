@@ -10,9 +10,15 @@
                 <span class="lot__amount">Стартовая цена</span>
                 <span class="lot__cost"><?=strip_tags(around_price($lot['start_price']))?></span>
             </div>
-            <div class="lot__timer timer">
-                <?=get_time_left('23:59:59', 'now')?>
-            </div>
+            <?php if(have_date_left($lot['finish_date']) === false): ?>
+                <div class="lot-item__timer timer" style="background-color: red">
+                    Закрыт
+                </div>
+            <?php else:?>
+                <div class="lot-item__timer timer">
+                    <?=have_date_left($lot['finish_date'])?>
+                </div>
+            <? endif; ?>
         </div>
     </div>
 </li>

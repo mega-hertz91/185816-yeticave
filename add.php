@@ -35,37 +35,25 @@ $type_files = ['image/jpeg', 'image/png', 'image/jpg'];
 
 if(isset($_FILES['image-lot']['error'])) {
     if($_FILES['image-lot']['error'] === 0) {
-
-        $check = 'image-lot';
-
-        foreach($type_files as $key) {
-            if(mime_content_type($_FILES['image-lot']['tmp_name']) === $key) {
-                $check = '';
-            }
+        if ($_FILES['image-lot']['type'] !== 'image/jpeg' && $_FILES['image-lot']['type'] !== 'image/jpg' && $_FILES['image-lot']['type'] !== 'image/png' ) {
+            array_push($errors, 'image-lot');
         }
-
-        array_push($errors, $check);
     }
 };
 
 if (empty($errors)) {
-    $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data]);
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $filename = uniqid(). '.jpg';
+        $filename = uniqid(). '.png ';
         $_FILES['image-lot'];
 
         move_uploaded_file($_FILES['image-lot']['tmp_name'], 'img/' . $filename);
         $form_data += ['image_url' => 'img/' . $filename];
         $form_data +=['user_id' => $_SESSION['user']['id']];
 
-        header('location: /lot.php?lot_id=' . add_lot($con, $form_data));
+       header('location: /lot.php?lot_id=' . add_lot($con, $form_data));
         die();
     };
-
-
 } else {
-
     $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
 }
 

@@ -11,8 +11,22 @@
         <div class="lot-item__right">
             <?php if (isset($_SESSION['user'])): ?>
             <div class="lot-item__state">
+                <?php if(have_date_left($lot['finish_date']) === false): ?>
+                <div class="lot-item__timer timer" style="background-color: red">
+                    Закрыт
+                </div>
+                    <div class="lot-item__cost-state">
+                        <div class="lot-item__rate">
+                            <span class="lot-item__amount">Продан по цене</span>
+                            <span class="lot-item__cost"><?=$bet['current_price']?></span>
+                        </div>
+                        <div class="lot-item__min-cost">
+                            Мин. ставка <span>12 000 р</span>
+                        </div>
+                    </div>
+                <?php else:?>
                 <div class="lot-item__timer timer">
-                    10:54
+                    <?=have_date_left($lot['finish_date'])?>
                 </div>
                 <div class="lot-item__cost-state">
                     <div class="lot-item__rate">
@@ -34,11 +48,12 @@
                         <?php if(empty($errors)): ?>
                             <span class="form__error"></span>
                         <?php else: ?>
-                            <span class="form__error">Введите сумму лота лота</span>
+                            <span class="form__error">Сумма лота слишком мала</span>
                         <? endif; ?>
                     </p>
                     <button type="submit" class="button">Сделать ставку</button>
                 </form>
+                <? endif; ?>
             </div>
             <?php endif;?>
             <div class="history">

@@ -12,22 +12,13 @@ foreach ($form_data as $key => $value) {
     }
 }
 
-$type_files = ['image/jpeg', 'image/png', 'image/jpg'];
-
 if(isset($_FILES['avatar']['error'])) {
     if($_FILES['avatar']['error'] === 0) {
-
-        $check = 'image-lot';
-
-        foreach($type_files as $key) {
-            if(mime_content_type($_FILES['avatar']['tmp_name']) === $key) {
-                $check = '';
-            }
+        if ($_FILES['avatar']['type'] !== 'image/jpeg' && $_FILES['avatar']['type'] !== 'image/jpg' && $_FILES['avatar']['type'] !== 'image/png' ) {
+            array_push($errors, 'image-lot');
         }
-
-        array_push($errors, $check);
     }
-}
+};
 
 if(empty($form_data)) {
     $form_data = [
