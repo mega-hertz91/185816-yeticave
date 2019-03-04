@@ -40,3 +40,6 @@ CREATE TABLE bets (
   lot_id INT,
   date_bet DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE FULLTEXT INDEX lots_search
+  ON lots(name, description);

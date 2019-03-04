@@ -207,6 +207,8 @@ function check_input ($errors, $input) {
     return $check;
 };
 
+/*Задает имена полям ошибок*/
+
 function get_errors_name ($errors) {
     $name = [
         'lot-name' => 'Название лота',
@@ -331,6 +333,25 @@ function make_user_bet ($db_params, $user_bet) {
     }
 
     return $result;
+};
+
+/*Осуществляет логический поиск по словоформе*/
+
+function get_search ($db_params, $form_data) {
+    $form_data = mysqli_real_escape_string($db_params, $form_data);
+
+    $sql = "SELECT l.id, l.name, l.description, l.image, l.start_price, c.name AS category, l.finish_date FROM lots l
+            JOIN categories c
+            ON l.category_id = c.id
+            WHERE MATCH(l.name, l.description) AGAINST ('$form_data *' IN BOOLEAN MODE);";
+    $result = mysqli_query($db_params, $sql);
+    $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    if(!$lots) {
+        $lots = false;
+    }
+
+    return $lots;
 };
 
 
