@@ -11,9 +11,15 @@
         <div class="lot-item__right">
             <?php if (isset($_SESSION['user'])): ?>
             <div class="lot-item__state">
-                <div class="lot-item__timer timer">
-                    10:54
+                <?php if(have_date_left($lot['finish_date']) === false): ?>
+                <div class="lot-item__timer timer" style="background-color: red">
+                    Закрыт
                 </div>
+                <?php else:?>
+                <div class="lot-item__timer timer">
+                    <?=have_date_left($lot['finish_date'])?>
+                </div>
+                <? endif; ?>
                 <div class="lot-item__cost-state">
                     <div class="lot-item__rate">
                         <span class="lot-item__amount">Текущая цена</span>

@@ -75,7 +75,7 @@ function get_time_left ($final_date, $start_date) {
 /*Отрисовка списка лотов*/
 
 function render_lots ($db_params) {
-    $sql = 'SELECT l.id, l.name, l.image, c.name AS category, l.start_price  FROM lots l
+    $sql = 'SELECT l.id, l.name, l.image, c.name AS category, l.start_price, l.finish_date  FROM lots l
             JOIN categories c
             ON l.id = c.id
             ORDER BY l.id
@@ -364,7 +364,6 @@ function get_search ($db_params, $form_data) {
 
 /*Возвращает количество прошедшего времени с текущей точки*/
 
-
 function have_date_last ($date) {
     $one_day = strtotime('5 march 2019') - strtotime('4 march 2019');
     $current_date = strtotime('now');
@@ -374,12 +373,35 @@ function have_date_last ($date) {
     if($result > $one_day) {
         $result = date("j дней", $result);
     } elseif ($result > 3600) {
-        $result = date("H часов", $result);
+        $result = date("G часов", $result);
     } else {
         $result = date("i минут", $result);
     }
 
 
+
+    return $result;
+};
+
+/*Возвращяет время до окночания торгов*/
+
+function have_date_left ($date) {
+    $one_day = strtotime('5 march 2019') - strtotime('4 march 2019');
+    $current_date = strtotime('now');
+    $date = strtotime($date);
+    $result = $date - $current_date;
+
+    if ($date < $current_date) {
+        $result = false;
+    } else {
+        if($result > $one_day) {
+            $result = date("j дней", $result);
+        } elseif ($result > 3600) {
+            $result = date("G:i", $result);
+        } else {
+            $result = date("i минут", $result);
+        }
+    }
 
     return $result;
 };
