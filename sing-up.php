@@ -31,7 +31,7 @@ if(empty($form_data)) {
 };
 
 if(empty($errors)) {
-    $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data]);
+    $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
 
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
 

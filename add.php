@@ -42,6 +42,8 @@ if(isset($_FILES['image-lot']['error'])) {
 };
 
 if (empty($errors)) {
+    $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $filename = uniqid(). '.png ';
         $_FILES['image-lot'];
