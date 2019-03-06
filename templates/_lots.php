@@ -18,7 +18,7 @@
                 <div class="lot-item__timer timer">
                     <?=have_date_left($lot['finish_date'])?>
                 </div>
-            <? endif; ?>
+            <?php endif; ?>
         </div>
     </div>
 </li>
