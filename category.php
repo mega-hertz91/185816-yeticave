@@ -2,7 +2,6 @@
 require_once ('inc/config.php');
 require_once ('inc/sql.php');
 require_once ('inc/function.php');
-require_once ('inc/data.php');
 
 $id = $_GET['category_id'];
 
