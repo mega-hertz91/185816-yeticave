@@ -16,7 +16,7 @@
             <span class="form__error">Введите пароль</span>
         <?php else:?>
             <span class="form__error"><?=$text_error?></span>
-        <? endif;?>
+        <?php endif;?>
     </div>
     <button type="submit" class="button">Войти</button>
 </form>

@@ -49,17 +49,17 @@
                             <span class="form__error"></span>
                         <?php else: ?>
                             <span class="form__error">Сумма лота слишком мала</span>
-                        <? endif; ?>
+                        <?php endif; ?>
                     </p>
                     <button type="submit" class="button">Сделать ставку</button>
                 </form>
-                <? endif; ?>
+                <?php endif; ?>
             </div>
             <?php endif;?>
             <div class="history">
                 <?php if(count($bets) == 0) :?>
                     <h3>Ставок для этого лота нет</h3>
-                <? else:?>
+                <?php else:?>
                 <h3>История ставок (<span><?=count($bets)?></span>)</h3>
             </div>
                 <?php foreach ($bets as $key => $value): ?>
