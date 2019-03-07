@@ -21,6 +21,6 @@ if($con === false) {
     }
 }
 
-$layout_content = include_template('layout.php', ['content' => $page_content, 'title' => $main_config['sitename'], 'categories' => render_categories($con), 'is_auth' => $is_auth, 'user_name' => $user_name]);
+$layout_content = include_template('layout.php', ['content' => $page_content, 'title' => $main_config['sitename'], 'categories' => render_categories($con)]);
 
 print($layout_content);

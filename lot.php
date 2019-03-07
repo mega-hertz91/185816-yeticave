@@ -57,7 +57,7 @@ if (check_id($con, 'lots', $id) === false or $id == 'error') {
     if(make_user_bet($con, $user_bet) == false) {
         $content_lot = include_template('404.php', [ 'text_error' => 'Извините, что-то пошло не так, попробуйте снова!']);
     } else {
-        $content_lot = include_template('_lot.php', [ 'lot' => have_lot($con), 'bet' => have_bet($con), 'bets' => render_bets($con), 'user_bet' => $user_bet, 'con' => $con, 'master_id' => $master_lot_id]);
+        $content_lot = include_template('_lot.php', [ 'lot' => have_lot($con), 'bet' => have_bet($con), 'bets' => render_bets($con), 'user_bet' => $user_bet, 'con' => $con, 'master_id' => $master_lot_id, 'count_bets' => $count_bets_by_user, 'errors' => $errors]);
     }
 }
 
