@@ -24,7 +24,7 @@
                             Мин. ставка <span>12 000 р</span>
                         </div>
                     </div>
-                <?php elseif($master_id === true):?>
+                <?php elseif($master_id === true || $count_bets >= 1):?>
                     <div class="lot-item__timer timer">
                         <?=have_date_left($lot['finish_date'])?>
                     </div>

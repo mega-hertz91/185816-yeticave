@@ -442,4 +442,17 @@ function check_user_by_lot ($db_params, $user_id_session, $user_lot_id) {
     }
 
     return $check;
-}
+};
+
+/*Проверяет количество ставок*/
+
+function check_count_bets ($db_params, $user_id_session, $lot_id) {
+
+    $sql = "SELECT user_id FROM bets
+            WHERE lot_id = '{$lot_id}' and user_id =" . $user_id_session;
+
+    $result = mysqli_query($db_params, $sql);
+    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $result;
+};
