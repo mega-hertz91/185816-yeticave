@@ -110,7 +110,7 @@ function have_lot ($db_params) {
         $id = '1';
     }
 
-    $sql = 'SELECT l.id, l.name, l.description, c.name AS category, l.image, l.start_price, l.start_date, l.step_bet, l.finish_date FROM lots l
+    $sql = 'SELECT l.id, l.name, l.description, c.name AS category, l.image, l.start_price, l.start_date, l.step_bet, l.finish_date, l.user_id FROM lots l
             JOIN categories c
             ON c.id = l.category_id
             WHERE l.id = ' . $id;
@@ -423,3 +423,23 @@ function check_now_date ($check_date) {
 
     return $check;
 };
+
+/*Проверят юзера лота*/
+
+function check_user_by_lot ($db_params, $user_id_session, $user_lot_id) {
+    $check = false;
+
+    $sql = "SELECT user_id FROM lots
+            WHERE user_id =" . $user_id_session;
+
+    $result = mysqli_query($db_params, $sql);
+    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    if($user_id_session === $user_lot_id) {
+        $check = true;
+    } elseif (!$result) {
+        $check = false;
+    }
+
+    return $check;
+}

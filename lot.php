@@ -20,6 +20,10 @@ if(empty($_POST)) {
     ];
 }
 
+if(isset($_SESSION['user'])) {
+    $master_lot_id = check_user_by_lot($con, $_SESSION['user']['id'], have_lot($con)['user_id']);
+}
+
 if (isset($user_bet['cost'])) {
     if (is_int(intval($user_bet['cost']))) {
         $errors = [];
@@ -42,7 +46,7 @@ if (check_id($con, 'lots', $id) === false or $id == 'error') {
     $layout_content_lot = include_template('layout_lot.php', ['content' => $content_lot,'categories' => render_categories($con), 'lot' => ['name' => '404']]);
 
 } elseif($errors) {
-    $content_lot = include_template('_lot.php', [ 'lot' => have_lot($con), 'bet' => have_bet($con), 'bets' => render_bets($con), 'user_bet' => $user_bet, 'errors' => $errors]);
+    $content_lot = include_template('_lot.php', [ 'lot' => have_lot($con), 'bet' => have_bet($con), 'bets' => render_bets($con), 'user_bet' => $user_bet, 'errors' => $errors, 'master_id' => $master_lot_id]);
 
 } else {
     $user_bet += [
@@ -53,9 +57,8 @@ if (check_id($con, 'lots', $id) === false or $id == 'error') {
     if(make_user_bet($con, $user_bet) == false) {
         $content_lot = include_template('404.php', [ 'text_error' => 'Извините, что-то пошло не так, попробуйте снова!']);
     } else {
-        $content_lot = include_template('_lot.php', [ 'lot' => have_lot($con), 'bet' => have_bet($con), 'bets' => render_bets($con), 'user_bet' => $user_bet]);
+        $content_lot = include_template('_lot.php', [ 'lot' => have_lot($con), 'bet' => have_bet($con), 'bets' => render_bets($con), 'user_bet' => $user_bet, 'con' => $con, 'master_id' => $master_lot_id]);
     }
-
 }
 
 $layout_content_lot = include_template('layout_lot.php', ['content' => $content_lot,'categories' => render_categories($con), 'lot' => have_lot($con)]);

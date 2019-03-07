@@ -12,13 +12,30 @@
             <?php if (isset($_SESSION['user'])): ?>
             <div class="lot-item__state">
                 <?php if(have_date_left($lot['finish_date']) === false): ?>
-                <div class="lot-item__timer timer" style="background-color: red">
-                    Закрыт
-                </div>
+                    <div class="lot-item__timer timer" style="background-color: red">
+                        Закрыт
+                    </div>
                     <div class="lot-item__cost-state">
                         <div class="lot-item__rate">
                             <span class="lot-item__amount">Продан по цене</span>
                             <span class="lot-item__cost"><?=$bet['current_price']?></span>
+                        </div>
+                        <div class="lot-item__min-cost">
+                            Мин. ставка <span>12 000 р</span>
+                        </div>
+                    </div>
+                <?php elseif($master_id === true):?>
+                    <div class="lot-item__timer timer">
+                        <?=have_date_left($lot['finish_date'])?>
+                    </div>
+                    <div class="lot-item__cost-state">
+                        <div class="lot-item__rate">
+                            <span class="lot-item__amount">Текущая цена</span>
+                            <?php if($bet['current_price'] == false): ?>
+                                <span class="lot-item__cost"><?=$lot['start_price']?></span>
+                            <?php else: ?>
+                                <span class="lot-item__cost"><?=$bet['current_price']?></span>
+                            <?php endif; ?>
                         </div>
                         <div class="lot-item__min-cost">
                             Мин. ставка <span>12 000 р</span>
