@@ -20,6 +20,12 @@ if(isset($_FILES['avatar']['error'])) {
     }
 };
 
+if(isset($_POST['email'])) {
+    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) == false) {
+        $errors = ['email'];
+    }
+}
+
 if(empty($form_data)) {
     $form_data = [
         'email' => '',
@@ -27,7 +33,6 @@ if(empty($form_data)) {
         'name' => '',
         'message' => ''
     ];
-
 };
 
 if(empty($errors)) {
@@ -55,13 +60,13 @@ if(empty($errors)) {
                 $page_content = include_template('404.php', ['text_error' => 'Произошла ошибка при регистрации, попробуйте еще раз']);
             }
         } else {
-           // print('error');
             array_push($errors, 'email', 'Пользователь с таким email уже зарегистрирован');
             $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
         }
     }
 
 } else {
+
     $page_content = include_template('_sing-up.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
 }
 

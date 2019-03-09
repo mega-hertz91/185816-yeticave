@@ -312,6 +312,10 @@ VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 function add_user ($db_params, $form_data) {
     $check = true;
 
+    foreach ($form_data as $key => $value) {
+        $form_data[$key] = strip_tags($value);
+    }
+
     $form_data['password']  = password_hash($form_data['password'], PASSWORD_DEFAULT);
 
     $sql = 'INSERT INTO users (nikname, email, password, contact, avatar)
