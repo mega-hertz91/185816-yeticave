@@ -292,6 +292,11 @@ function check_password ($db_params, $email, $password) {
 /*Добавление лота в БД*/
 
 function add_lot ($db_params, $form_data) {
+
+    foreach ($form_data as $key => $value) {
+        $form_data[$key] = strip_tags($value);
+    }
+
     $sql = 'INSERT INTO lots (name, description, image, category_id, user_id, start_price, step_bet, finish_date)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
 

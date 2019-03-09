@@ -3,7 +3,7 @@
             <div class="form__container-two">
                 <div class="form__item <?php if(check_input($errors, 'lot-name') == true): ?>form__item--invalid<?php endif;?>"> <!-- form__item--invalid -->
                     <label for="lot-name">Наименование</label>
-                    <input id="lot-name" type="text" name="lot-name" value="<?=$form_data['lot-name']?>" placeholder="Введите наименование лота" required>
+                    <input id="lot-name" type="text" name="lot-name" value="<?=strip_tags($form_data['lot-name'])?>" placeholder="Введите наименование лота" required>
                     <span class="form__error">Введите наименование лота</span>
                 </div>
                 <div class="form__item">
@@ -43,17 +43,17 @@
             <div class="form__container-three">
                 <div class="form__item form__item--small <?php if(check_input($errors, 'lot-rate') == true): ?>form__item--invalid<?php endif;?>">
                     <label for="lot-rate">Начальная цена</label>
-                    <input id="lot-rate" type="number" name="lot-rate" placeholder="0" value="<?=$form_data['lot-rate']?>" required>
+                    <input id="lot-rate" type="number" name="lot-rate" placeholder="0" value="<?=strip_tags($form_data['lot-rate'])?>" required>
                     <span class="form__error">Введите начальную цену</span>
                 </div>
                 <div class="form__item form__item--small <?php if(check_input($errors, 'lot-step') == true): ?>form__item--invalid<?php endif;?>">
                     <label for="lot-step">Шаг ставки</label>
-                    <input id="lot-step" type="number" name="lot-step" value="<?=$form_data['lot-step']?>" placeholder="0" required>
+                    <input id="lot-step" type="number" name="lot-step" value="<?=strip_tags($form_data['lot-step'])?>" placeholder="0" required>
                     <span class="form__error">Введите шаг ставки</span>
                 </div>
                 <div class="form__item">
                     <label for="lot-date">Дата окончания торгов</label>
-                    <input class="form__input-date" id="lot-date" type="date" name="lot-date" value="<?=$form_data['lot-date']?>" required>
+                    <input class="form__input-date" id="lot-date" type="date" name="lot-date" value="<?=strip_tags($form_data['lot-date'])?>" required>
                     <span class="form__error">Введите дату завершения торгов</span>
                 </div>
             </div>
