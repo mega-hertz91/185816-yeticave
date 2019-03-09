@@ -22,6 +22,9 @@ if(empty($_POST)) {
 if(isset($_SESSION['user'])) {
     $master_lot_id = check_user_by_lot($con, $_SESSION['user']['id'], have_lot($con)['user_id']);
     $count_bets_by_user = count(check_count_bets($con, $_SESSION['user']['id'], have_lot($con)['id']));
+} else {
+    $master_lot_id = '';
+    $count_bets_by_user = '';
 }
 
 if (isset($user_bet['cost'])) {
