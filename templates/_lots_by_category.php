@@ -7,7 +7,7 @@
             <!--заполните этот список из массива с товарами-->
             <?php if(empty($lots)): ?>
                  <h3>В данной категории пока нет лотов</h3>
-            <? else:?>
+            <?php else:?>
                 <?php foreach ($lots as $lot): ?>
                     <?=include_template('_lots.php', ['lot' => $lot]); ?>
                 <?php endforeach;?>

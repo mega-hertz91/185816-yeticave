@@ -2,7 +2,7 @@
         <h2>Регистрация нового аккаунта</h2>
         <div class="form__item <?php if(check_input($errors, 'email') == true): ?>form__item--invalid<?php endif;?>"> <!-- form__item--invalid -->
             <label for="email">E-mail*</label>
-            <input id="email" type="text" name="email" placeholder="Введите e-mail" value="<?=$form_data['email']?>" required>
+            <input id="email" type="email" name="email" placeholder="Введите e-mail" value="<?=strip_tags($form_data['email'])?>" required>
             <?php if(empty($errors['text-error'])): ?>
                 <span class="form__error">Введите e-mail</span>
             <?php else: ?>
@@ -11,12 +11,12 @@
         </div>
         <div class="form__item <?php if(check_input($errors, 'password') == true): ?>form__item--invalid<?php endif;?>">
             <label for="password">Пароль*</label>
-            <input id="password" type="text" name="password" placeholder="Введите пароль" value="<?=$form_data['password']?>" required>
+            <input id="password" type="text" name="password" placeholder="Введите пароль" value="<?=strip_tags($form_data['password'])?>" required>
             <span class="form__error">Введите пароль</span>
         </div>
         <div class="form__item <?php if(check_input($errors, 'name') == true): ?>form__item--invalid<?php endif;?>">
             <label for="name">Имя*</label>
-            <input id="name" type="text" name="name" placeholder="Введите имя" value="<?=$form_data['name']?>" required>
+            <input id="name" type="text" name="name" placeholder="Введите имя" value="<?=strip_tags($form_data['name'])?>" required>
             <span class="form__error">Введите имя</span>
         </div>
         <div class="form__item <?php if(check_input($errors, 'message') == true): ?>form__item--invalid<?php endif;?>">

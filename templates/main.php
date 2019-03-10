@@ -6,7 +6,7 @@
             <!--заполните этот список из массива категорий-->
             <?php foreach ($categories as $cat): ?>
                 <?=include_template('_categories.php', ['cat' => $cat])?>
-            <? endforeach;?>
+            <?php endforeach;?>
         </ul>
     </section>
     <section class="lots">
