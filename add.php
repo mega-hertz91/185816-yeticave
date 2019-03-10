@@ -49,8 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if(isset($form_data['lot-rate']) && isset($form_data['lot-rate'])) {
-            if(check_now_date($form_data['lot-date']) == false) {
-                $errors = ['lot-date'];
+            if(intval($form_data['lot-rate']) < 0) {
+                $errors = ['lot-rate'];
+            } elseif (intval($form_data['lot-step']) < 0) {
+                $errors = ['lot-step'];
             }
         }
 
@@ -82,10 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('location: /lot.php?lot_id=' . add_lot($con, $form_data));
             die();
 
+        } else {
+            $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
         }
-    }
-
-     else {
+    } else {
         $content = include_template('_add_lot.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
     }
 } elseif(empty($_SESSION['user'])) {
