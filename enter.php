@@ -69,16 +69,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 };
             }
 
+        } else {
+            $page_content = include_template('_enter.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
         }
-    }
-
-     else {
+    } else {
         $page_content = include_template('_enter.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
     }
 } else {
     $page_content = include_template('_enter.php', ['categories' => render_categories($con), 'form_data' => $form_data, 'errors' => $errors]);
 }
-
 
 $layout_content = include_template('layout_lot.php', ['content' => $page_content,'categories' => render_categories($con), 'lot' => ['name' => 'Вход на сайт']]);
 
