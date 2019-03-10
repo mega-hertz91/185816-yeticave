@@ -465,3 +465,5 @@ function check_count_bets ($db_params, $user_id_session, $lot_id) {
 
     return $result;
 };
+
+/*Проверяет содержимое полей при отправке*/
