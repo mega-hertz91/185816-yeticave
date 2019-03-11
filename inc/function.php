@@ -360,12 +360,13 @@ function get_search ($db_params, $form_data) {
     $sql = "SELECT l.id, l.name, l.description, l.image, l.start_price, c.name AS category, l.finish_date FROM lots l
             JOIN categories c
             ON l.category_id = c.id
-            WHERE MATCH(l.name, l.description) AGAINST ('$form_data *' IN BOOLEAN MODE);";
+            WHERE MATCH(l.name, l.description) AGAINST ('$form_data *' IN BOOLEAN MODE)";
     $result = mysqli_query($db_params, $sql);
-    $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    if(!$lots) {
+    if($result === false) {
         $lots = false;
+    } else {
+        $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
     return $lots;
